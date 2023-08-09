@@ -31,6 +31,16 @@ public class AirportController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping(("/byIataCode"))
+    public ResponseEntity<Object>getAirportByIataCode(@RequestBody AirportSaveRequest request) {
+        var airport = airportService.getAirportByIataCode(request);
+        var response =  BaseResponse.<AirportSaveResponse>builder()
+                .status(HttpStatus.FOUND.value())
+                .isSuccess(true)
+                .data(airport)
+                .build();
+        return ResponseEntity.ok(response);
+    }
 
 
     @PostMapping

@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface AirportRepository extends JpaRepository<Airport, Long> {
 
+    Airport findByIataCodeIsWithinIgnoreCase(String iataCode);
+
 }
 
 

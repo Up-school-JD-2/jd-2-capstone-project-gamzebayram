@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class AirportService {
 
     private final AirportRepository airportRepository;
+
     public AirportSaveResponse createAirport(AirportSaveRequest airportDTO) {
         Airport airport = Airport.builder()
                 .iataCode(airportDTO.getIataCode())
@@ -47,5 +48,22 @@ public class AirportService {
                 .collect(Collectors.toList());
     }
 
+    public AirportSaveResponse getAirportByIataCode(AirportSaveRequest airportDTO) {
+
+        Airport airport = airportRepository.findByIataCodeIsWithinIgnoreCase(airportDTO.getIataCode());
+
+        return AirportSaveResponse.builder()
+                .id(airport.getId())
+                .iataCode(airport.getIataCode())
+                .airportName(airport.getAirportName())
+                .airportLocation(airport.getAirportLocation())
+                .build();
+
+
+    }
+
+
 }
+
+
 
