@@ -3,9 +3,10 @@ package io.upschool.service;
 
 import io.upschool.entity.Flight;
 import io.upschool.repository.FlightRepository;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor

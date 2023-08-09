@@ -13,6 +13,7 @@ public interface AirportRepository extends JpaRepository<Airport, Long> {
 
     Airport findByIataCodeIs(String iataCode);
 
+
 }
 
 

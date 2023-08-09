@@ -4,20 +4,20 @@ import io.upschool.dto.airport.AirportSaveRequest;
 import io.upschool.dto.airport.AirportSaveResponse;
 import io.upschool.entity.Airport;
 import io.upschool.repository.AirportRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional()
+@Transactional
 public class AirportService {
 
     private final AirportRepository airportRepository;
 
+    @Transactional
     public AirportSaveResponse createAirport(AirportSaveRequest airportDTO) {
         Airport airport = Airport.builder()
                 .iataCode(airportDTO.getIataCode())
@@ -60,6 +60,11 @@ public class AirportService {
                 .build();
 
 
+    }
+
+    @Transactional(readOnly = true)
+    public Airport findAirportByIataCode(String code) {
+        return airportRepository.findByIataCodeIs(code);
     }
 
 
