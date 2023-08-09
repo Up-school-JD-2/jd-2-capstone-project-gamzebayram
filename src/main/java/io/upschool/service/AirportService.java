@@ -50,7 +50,7 @@ public class AirportService {
 
     public AirportSaveResponse getAirportByIataCode(AirportSaveRequest airportDTO) {
 
-        Airport airport = airportRepository.findByIataCodeIsWithinIgnoreCase(airportDTO.getIataCode());
+        Airport airport = airportRepository.findByIataCodeIs(airportDTO.getIataCode());
 
         return AirportSaveResponse.builder()
                 .id(airport.getId())
