@@ -5,6 +5,7 @@ import io.upschool.dto.airline.AirlineSaveRequest;
 import io.upschool.dto.airline.AirlineSaveResponse;
 import io.upschool.entity.Airline;
 import io.upschool.entity.Airport;
+import io.upschool.exception.AirlineAlreadySavedByIcaoAndIataCodeException;
 import io.upschool.repository.AirlineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,12 @@ public class AirlineService {
 
 
 
+    private void checkIsAirlineAlreadySaved(AirlineSaveRequest airlineDTO) {
+        int findAirlineCountByIcaoAndIataCode = airlineRepository.findAirlineCountByIcaoAndIataCode(airlineDTO.getIcaoCode(),airlineDTO.getAirportIataCode());
+        if (findAirlineCountByIcaoAndIataCode > 0) {
+            throw new AirlineAlreadySavedByIcaoAndIataCodeException("Airline already exists");
+        }
+    }
 
 
 
