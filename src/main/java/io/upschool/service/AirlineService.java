@@ -21,7 +21,7 @@ public class AirlineService {
 
     @Transactional
     public AirlineSaveResponse createAirline(AirlineSaveRequest airlineDTO) {
-
+        checkIsAirlineAlreadySaved(airlineDTO);
         Airline airlineResponse = buildAirlineAndSave(airlineDTO);
         return AirlineSaveResponse.builder()
                 .id(airlineResponse.getId())
