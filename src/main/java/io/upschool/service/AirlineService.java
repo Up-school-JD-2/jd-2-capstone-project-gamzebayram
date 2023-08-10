@@ -19,7 +19,7 @@ public class AirlineService {
     private final AirportService airportService;
 
     @Transactional
-    public AirlineSaveResponse save(AirlineSaveRequest airlineDTO) {
+    public AirlineSaveResponse createAirline(AirlineSaveRequest airlineDTO) {
 
         Airline airlineResponse = buildAirlineAndSave(airlineDTO);
         return AirlineSaveResponse.builder()
@@ -39,7 +39,8 @@ public class AirlineService {
                 .airlineName(airlineDTO.getAirlineName())
                 .airport(airport)
                 .build();
-        return airlineRepository.save(newAirline); //airport yoksa???
+        return airlineRepository.save(newAirline);
+        //airport yoksa???  BENZERSİZ İCAO THY AYNI ZAMANDA SAW DA VE IST DE OLABİLİR AMA UNİQ İCAO KAYIT EDEMİYORUM
     }
 
 
