@@ -3,6 +3,7 @@ package io.upschool.service;
 import io.upschool.dto.airport.AirportSaveRequest;
 import io.upschool.dto.airport.AirportSaveResponse;
 import io.upschool.entity.Airport;
+import io.upschool.exception.AirportNotFoundException;
 import io.upschool.repository.AirportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -64,8 +65,13 @@ public class AirportService {
 
     @Transactional(readOnly = true)
     public Airport findAirportByIataCode(String code) {
-        return airportRepository.findByIataCodeIs(code);
+        Airport airport = airportRepository.findByIataCodeIs(code);
+        if (airport == null) {
+            throw new AirportNotFoundException("Airport not found for IATA code: ", code);
+        }
+        return airport;
     }
+
 
 
 }

@@ -18,7 +18,7 @@ public class Airline {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "airline_icao_code", nullable = false, unique = true)
+    @Column(name = "airline_icao_code", nullable = false)
     private String icaoCode;
 
     @Column(name = "airline_name", nullable = false, length = 255)
