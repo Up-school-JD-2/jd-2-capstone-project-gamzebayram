@@ -15,5 +15,4 @@ public class RouteSaveRequest {
     private String departureAirportIataCode;
     private String arrivalAirportIataCode;
 
-
 }
