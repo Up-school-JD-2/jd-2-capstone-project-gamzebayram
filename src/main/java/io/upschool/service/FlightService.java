@@ -25,7 +25,20 @@ public class FlightService {
         return flightRepository.findById(id).orElse(null);
     }
 
+    /*
+    private Airline buildAirlineAndSave(AirlineSaveRequest airlineDTO) {
+        Airport airport = airportService.findAirportByIataCode(airlineDTO.getAirportIataCode());
+
+        Airline newAirline = Airline.builder()
+                .icaoCode(airlineDTO.getIcaoCode())
+                .airlineName(airlineDTO.getAirlineName())
+                .airport(airport)
+                .build();
+        return airlineRepository.save(newAirline);
+        //airport yoksa???  BENZERSİZ İCAO THY AYNI ZAMANDA SAW DA VE IST DE OLABİLİR AMA UNİQ İCAO KAYIT EDEMİYORUM
+    }
 
 
+     */
 
 }

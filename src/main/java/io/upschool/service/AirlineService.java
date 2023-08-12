@@ -4,12 +4,13 @@ package io.upschool.service;
 import io.upschool.dto.airline.AirlineSaveRequest;
 import io.upschool.dto.airline.AirlineSaveResponse;
 import io.upschool.entity.Airline;
-import io.upschool.entity.Airport;
-import io.upschool.exception.AirlineAlreadySavedByIcaoAndIataCodeException;
 import io.upschool.repository.AirlineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,39 +21,43 @@ public class AirlineService {
 
     @Transactional
     public AirlineSaveResponse createAirline(AirlineSaveRequest airlineDTO) {
-        checkIsAirlineAlreadySaved(airlineDTO);
-        Airline airlineResponse = buildAirlineAndSave(airlineDTO);
-        return AirlineSaveResponse.builder()
-                .id(airlineResponse.getId())
-                .icaoCode(airlineResponse.getIcaoCode())
-                .airlineName(airlineResponse.getAirlineName())
-                .airportName(airlineResponse.getAirport().getAirportName())
-                .build();
-    }
 
-/*
-    private Airline buildAirlineAndSave(AirlineSaveRequest airlineDTO) {
-        Airport airport = airportService.findAirportByIataCode(airlineDTO.getAirportIataCode());
-
-        Airline newAirline = Airline.builder()
+        Airline airline = Airline.builder()
                 .icaoCode(airlineDTO.getIcaoCode())
                 .airlineName(airlineDTO.getAirlineName())
-                .airport(airport)
                 .build();
-        return airlineRepository.save(newAirline);
-        //airport yoksa???  BENZERSİZ İCAO THY AYNI ZAMANDA SAW DA VE IST DE OLABİLİR AMA UNİQ İCAO KAYIT EDEMİYORUM
+
+        Airline savedAirline = airlineRepository.save(airline);
+
+        return AirlineSaveResponse.builder()
+                .id(savedAirline.getId())
+                .icaoCode(savedAirline.getIcaoCode())
+                .airlineName(savedAirline.getAirlineName())
+                .build();
     }
 
-
-
-    private void checkIsAirlineAlreadySaved(AirlineSaveRequest airlineDTO) {
-        int findAirlineCountByIcaoAndIataCode = airlineRepository.findAirlineCountByIcaoAndIataCode(airlineDTO.getIcaoCode(),airlineDTO.getAirportIataCode());
-        if (findAirlineCountByIcaoAndIataCode > 0) {
-            throw new AirlineAlreadySavedByIcaoAndIataCodeException("Airline already exists");
-        }
+    public List<AirlineSaveResponse> getAllAirlines() {
+        List<Airline> airlines = airlineRepository.findAll();
+        return airlines.stream()
+                .map(airline -> new AirlineSaveResponse(
+                        airline.getId(),
+                        airline.getIcaoCode(),
+                        airline.getAirlineName()
+                ))
+                .collect(Collectors.toList());
     }
 
- */
+    public AirlineSaveResponse getAirlineByIcaoCode(AirlineSaveRequest airlineDTO) {
+
+        Airline airline = airlineRepository.findByIcaoCodeIs(airlineDTO.getIcaoCode());
+
+        return AirlineSaveResponse.builder()
+                .id(airline.getId())
+                .icaoCode(airline.getIcaoCode())
+                .airlineName(airline.getAirlineName())
+                .build();
+
+    }
 
 
 

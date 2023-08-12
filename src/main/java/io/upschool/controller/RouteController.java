@@ -1,16 +1,15 @@
 package io.upschool.controller;
 
 import io.upschool.dto.BaseResponse;
-import io.upschool.dto.airline.AirlineSaveRequest;
-import io.upschool.dto.airline.AirlineSaveResponse;
+import io.upschool.dto.route.RouteSaveRequest;
+import io.upschool.dto.route.RouteSaveResponse;
 import io.upschool.service.RouteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/routes")
@@ -19,14 +18,25 @@ public class RouteController {
 
     private final RouteService routeService;
 
-/*
+
     @PostMapping
-    public ResponseEntity<Object> createAirline(@RequestBody AirlineSaveRequest request) {
-        var airlineSaveResponse = airlineService.createAirline(request);
-        var response =  BaseResponse.<AirlineSaveResponse>builder()
+    public ResponseEntity<Object> createRoute(@RequestBody RouteSaveRequest request) {
+        var routeSaveResponse = routeService.createRoute(request);
+        var response =  BaseResponse.<RouteSaveResponse>builder()
                 .status(HttpStatus.CREATED.value())
                 .isSuccess(true)
-                .data(airlineSaveResponse)
+                .data(routeSaveResponse)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<Object>getAllRoutes() {
+        var routes = routeService.getAllRoutes();
+        var response =  BaseResponse.<List<RouteSaveResponse>>builder()
+                .status(HttpStatus.OK.value())
+                .isSuccess(true)
+                .data(routes)
                 .build();
         return ResponseEntity.ok(response);
     }
@@ -34,7 +44,5 @@ public class RouteController {
 
 
 
-
- */
 
 }
