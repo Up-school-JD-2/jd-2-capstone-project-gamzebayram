@@ -18,14 +18,11 @@ public class Airline {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "airline_icao_code", nullable = false)
+    @Column(name = "airline_icao_code", nullable = false, unique = true)
     private String icaoCode;
 
     @Column(name = "airline_name", nullable = false, length = 255)
     private String airlineName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "airport_id", nullable = true)
-    private Airport airport;
 
 }

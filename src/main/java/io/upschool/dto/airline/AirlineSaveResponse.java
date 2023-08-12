@@ -14,6 +14,5 @@ public class AirlineSaveResponse {
     private Long id;
     private String icaoCode;
     private String airlineName;
-    private String airportName;
 
 }

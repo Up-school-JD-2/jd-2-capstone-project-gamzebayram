@@ -25,7 +25,4 @@ public class Route {
     @JoinColumn(name = "arrival_airport_id", nullable = false)
     private Airport arrivalAirport;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "airline_id", nullable = true)
-    private Airline airline;
 }

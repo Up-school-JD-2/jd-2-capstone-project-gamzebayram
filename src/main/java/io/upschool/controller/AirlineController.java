@@ -8,10 +8,9 @@ import io.upschool.service.AirlineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/airlines")
@@ -30,6 +29,36 @@ public class AirlineController {
                 .build();
         return ResponseEntity.ok(response);
     }
+
+
+    @GetMapping
+    public ResponseEntity<Object>getAllAirlines() {
+        var airlines = airlineService.getAllAirlines();
+        var response =  BaseResponse.<List<AirlineSaveResponse>>builder()
+                .status(HttpStatus.OK.value())
+                .isSuccess(true)
+                .data(airlines)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(("/byIcaoCode"))
+    public ResponseEntity<Object>getAirlineByIcaoCode(@RequestBody AirlineSaveRequest request) {
+        var airline = airlineService.getAirlineByIcaoCode(request);
+        var response =  BaseResponse.<AirlineSaveResponse>builder()
+                .status(HttpStatus.FOUND.value())
+                .isSuccess(true)
+                .data(airline)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+
+
+
+
+
+
 
 
 }

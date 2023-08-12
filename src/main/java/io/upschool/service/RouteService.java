@@ -1,12 +1,9 @@
 package io.upschool.service;
 
-
 import io.upschool.dto.airline.AirlineSaveRequest;
 import io.upschool.dto.airline.AirlineSaveResponse;
 import io.upschool.entity.Airline;
-import io.upschool.entity.Airport;
-import io.upschool.exception.AirlineAlreadySavedByIcaoAndIataCodeException;
-import io.upschool.repository.AirlineRepository;
+import io.upschool.repository.RouteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class AirlineService {
+public class RouteService {
 
-    private final AirlineRepository airlineRepository;
+    private final RouteRepository routeRepository;
+    private final AirportService airportService;
+
+/*
 
     @Transactional
     public AirlineSaveResponse createAirline(AirlineSaveRequest airlineDTO) {
@@ -30,7 +30,7 @@ public class AirlineService {
                 .build();
     }
 
-/*
+
     private Airline buildAirlineAndSave(AirlineSaveRequest airlineDTO) {
         Airport airport = airportService.findAirportByIataCode(airlineDTO.getAirportIataCode());
 
@@ -53,6 +53,17 @@ public class AirlineService {
     }
 
  */
+
+
+
+
+
+
+
+
+
+
+
 
 
 

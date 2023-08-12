@@ -14,7 +14,6 @@ public class AirlineSaveRequest {
 
     private String icaoCode;
     private String airlineName;
-    private String airportIataCode;
 
 
 }

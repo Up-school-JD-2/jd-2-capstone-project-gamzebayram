@@ -60,7 +60,6 @@ public class AirportService {
                 .airportLocation(airport.getAirportLocation())
                 .build();
 
-
     }
 
     @Transactional(readOnly = true)
