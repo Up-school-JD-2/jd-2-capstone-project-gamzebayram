@@ -54,7 +54,10 @@ public class RouteService {
                 .collect(Collectors.toList());
     }
 
-
+    @Transactional(readOnly = true)
+    public Route getReferenceById(Long id) {
+        return routeRepository.getReferenceById(id);
+    }
 
 
     private Route buildRouteAndSave(RouteSaveRequest routeDTO) {

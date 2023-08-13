@@ -60,7 +60,10 @@ public class AirlineService {
     }
 
 
-
+    @Transactional(readOnly = true)
+    public Airline getReferenceById(Long id) {
+        return airlineRepository.getReferenceById(id);
+    }
 
 
 

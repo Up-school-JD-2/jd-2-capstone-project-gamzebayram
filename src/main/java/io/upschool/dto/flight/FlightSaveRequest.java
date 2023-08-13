@@ -20,7 +20,7 @@ public class FlightSaveRequest {
     private LocalDateTime arrivalDate;
     private int seatCapacity;
     private Long routeId;
-    private String airlineIcaoCode;
+    private Long airlineId;
 
 }
 

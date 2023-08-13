@@ -5,6 +5,8 @@ import io.upschool.dto.flight.FlightSaveRequest;
 import io.upschool.dto.flight.FlightSaveResponse;
 import io.upschool.dto.route.RouteSaveRequest;
 import io.upschool.dto.route.RouteSaveResponse;
+import io.upschool.entity.Airline;
+import io.upschool.entity.Airport;
 import io.upschool.entity.Flight;
 import io.upschool.entity.Route;
 import io.upschool.exception.RouteAlreadySavedException;
@@ -13,6 +15,7 @@ import io.upschool.repository.FlightRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -27,26 +30,45 @@ public class FlightService {
 
     @Transactional
     public FlightSaveResponse createFlight(FlightSaveRequest flightDTO) {
-        checkIsFlightAlreadySaved(flightDTO);
 
-        Flight flightResponse = buildRouteAndSave(routeDTO);
-        return RouteSaveResponse.builder()
+        Flight flightResponse = buildFlightAndSave(flightDTO);
+        return FlightSaveResponse.builder()
                 .id(flightResponse.getId())
-                .departureAirportName(flightResponse.getDepartureAirport().getAirportName())
-                .departureAirportLocation(flightResponse.getDepartureAirport().getAirportLocation())
-                .arrivalAirportName(flightResponse.getArrivalAirport().getAirportName())
-                .arrivalAirportLocation(flightResponse.getArrivalAirport().getAirportLocation())
+                .flightNumber(flightResponse.getFlightNumber())
+                .departureDate(flightResponse.getDepartureDate())
+                .arrivalDate(flightResponse.getArrivalDate())
+                .departureAirportName(flightResponse.getRoute().getDepartureAirport().getAirportName())
+                .departureAirportLocation(flightResponse.getRoute().getDepartureAirport().getAirportLocation())
+                .arrivalAirportName(flightResponse.getRoute().getArrivalAirport().getAirportName())
+                .arrivalAirportLocation(flightResponse.getRoute().getArrivalAirport().getAirportLocation())
+                .airlineIcaoCode(flightResponse.getAirline().getIcaoCode())
+                .airlineName(flightResponse.getAirline().getAirlineName())
+                .seatCapacity(flightResponse.getSeatCapacity())
                 .build();
     }
 
 
-    private void checkIsRouteAlreadySaved(RouteSaveRequest routeDTO) {
-        Route findRouteByDepartureAirport_IataCodeAndArrivalAirport_IataCode = routeRepository.findRouteByDepartureAirport_IataCodeAndArrivalAirport_IataCode(routeDTO.getDepartureAirportIataCode(), routeDTO.getArrivalAirportIataCode());
-        if (findRouteByDepartureAirport_IataCodeAndArrivalAirport_IataCode != null ) {
-            throw new RouteAlreadySavedException("Route already exists");
-        }
+    private Flight buildFlightAndSave(FlightSaveRequest flightDTO) {
+        Route routeByReference = routeService.getReferenceById(flightDTO.getRouteId());
+        Airline airlineByReference = airlineService.getReferenceById(flightDTO.getAirlineId());
+        String flightNumber =  generateUniqueFlightNumber();
+
+        Flight newFlight = Flight.builder()
+                .flightNumber(flightNumber)
+                .departureDate(flightDTO.getDepartureDate())
+                .arrivalDate(flightDTO.getArrivalDate())
+                .seatCapacity(flightDTO.getSeatCapacity())
+                .route(routeByReference)
+                .airline(airlineByReference)
+                .build();
+        return flightRepository.save(newFlight);
     }
 
+    private String generateUniqueFlightNumber() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(1000);
+        return "FL-" + randomNumber;
+    }
 
 
 
