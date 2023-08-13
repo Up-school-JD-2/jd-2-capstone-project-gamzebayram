@@ -1,7 +1,13 @@
 package io.upschool.service;
 
 
+import io.upschool.dto.flight.FlightSaveRequest;
+import io.upschool.dto.flight.FlightSaveResponse;
+import io.upschool.dto.route.RouteSaveRequest;
+import io.upschool.dto.route.RouteSaveResponse;
 import io.upschool.entity.Flight;
+import io.upschool.entity.Route;
+import io.upschool.exception.RouteAlreadySavedException;
 import io.upschool.repository.FlightRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -15,30 +21,33 @@ public class FlightService {
 
 
     private final FlightRepository flightRepository;
+    private final AirportService airportService;
+    private final AirlineService airlineService;
+    private final RouteService routeService;
 
     @Transactional
-    public Flight getReferenceById(Long id) {
-        return flightRepository.getReferenceById(id);
-    }
+    public FlightSaveResponse createFlight(FlightSaveRequest flightDTO) {
+        checkIsFlightAlreadySaved(flightDTO);
 
-    public Flight findFlightById(Long id) {
-        return flightRepository.findById(id).orElse(null);
-    }
-
-    /*
-    private Airline buildAirlineAndSave(AirlineSaveRequest airlineDTO) {
-        Airport airport = airportService.findAirportByIataCode(airlineDTO.getAirportIataCode());
-
-        Airline newAirline = Airline.builder()
-                .icaoCode(airlineDTO.getIcaoCode())
-                .airlineName(airlineDTO.getAirlineName())
-                .airport(airport)
+        Flight flightResponse = buildRouteAndSave(routeDTO);
+        return RouteSaveResponse.builder()
+                .id(flightResponse.getId())
+                .departureAirportName(flightResponse.getDepartureAirport().getAirportName())
+                .departureAirportLocation(flightResponse.getDepartureAirport().getAirportLocation())
+                .arrivalAirportName(flightResponse.getArrivalAirport().getAirportName())
+                .arrivalAirportLocation(flightResponse.getArrivalAirport().getAirportLocation())
                 .build();
-        return airlineRepository.save(newAirline);
-        //airport yoksa???  BENZERSİZ İCAO THY AYNI ZAMANDA SAW DA VE IST DE OLABİLİR AMA UNİQ İCAO KAYIT EDEMİYORUM
     }
 
 
-     */
+    private void checkIsRouteAlreadySaved(RouteSaveRequest routeDTO) {
+        Route findRouteByDepartureAirport_IataCodeAndArrivalAirport_IataCode = routeRepository.findRouteByDepartureAirport_IataCodeAndArrivalAirport_IataCode(routeDTO.getDepartureAirportIataCode(), routeDTO.getArrivalAirportIataCode());
+        if (findRouteByDepartureAirport_IataCodeAndArrivalAirport_IataCode != null ) {
+            throw new RouteAlreadySavedException("Route already exists");
+        }
+    }
+
+
+
 
 }

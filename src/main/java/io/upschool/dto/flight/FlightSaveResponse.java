@@ -1,15 +1,13 @@
 package io.upschool.dto.flight;
 
-import io.upschool.entity.Airline;
-import io.upschool.entity.Route;
-import io.upschool.entity.Ticket;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 
 @Data
@@ -22,10 +20,14 @@ public class FlightSaveResponse {
     private String flightNumber;
     private LocalDateTime departureDate;
     private LocalDateTime arrivalDate;
+    private String departureAirportName;
+    private String departureAirportLocation;
+    private String arrivalAirportName;
+    private String arrivalAirportLocation;
+    private String airlineIcaoCode;
+    private String airlineName;
     private int seatCapacity;
-    private Route route;
-    private Airline airline;
-    private List<Ticket> tickets;
+
 
 
 }
