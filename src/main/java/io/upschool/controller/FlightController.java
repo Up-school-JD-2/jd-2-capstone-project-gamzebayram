@@ -34,9 +34,9 @@ public class FlightController {
     }
 
     @GetMapping(("{flight_number}"))
-    public ResponseEntity<Object>getFlightByFlightNumber(@PathVariable("flight_number") String flightNumber) {
+    public ResponseEntity<FlightSaveResponse>getFlightByFlightNumber(@PathVariable("flight_number") String flightNumber) {
         var flight = flightService.getFlightByFlightNumber(flightNumber);
-        var response =  BaseResponse.<Object>builder()
+        var response =  BaseResponse.<FlightSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())
                 .isSuccess(true)
                 .data(flight)

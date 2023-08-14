@@ -22,6 +22,7 @@ public class TicketSaveRequest {
     private String cardNumber;
     private Double price;
     private String flightNumber;
+    private String ticketClassType;
 
 
 

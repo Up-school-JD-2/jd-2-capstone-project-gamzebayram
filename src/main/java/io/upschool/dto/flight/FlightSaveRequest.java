@@ -21,6 +21,7 @@ public class FlightSaveRequest {
     private int seatCapacity;
     private Long routeId;
     private Long airlineId;
+    private double BasePrice;
 
 }
 

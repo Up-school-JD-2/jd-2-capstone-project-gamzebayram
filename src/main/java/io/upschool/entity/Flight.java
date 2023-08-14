@@ -27,26 +27,27 @@ public class Flight {
     private String flightNumber;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", shape = JsonFormat.Shape.STRING)
-    @Column(name = "departure_date",nullable = false)
+    @Column(name = "departure_date", nullable = false)
     private LocalDateTime departureDate;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", shape = JsonFormat.Shape.STRING)
-    @Column(name = "arrival_date",nullable = false)
+    @Column(name = "arrival_date", nullable = false)
     private LocalDateTime arrivalDate;
 
-    @Column(name = "seat_capacity",nullable = false)
+    @Column(name = "seat_capacity", nullable = false)
     private int seatCapacity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="route_id", nullable = false)
+    @JoinColumn(name = "route_id", nullable = false)
     private Route route;
 
     @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="airline_id", nullable = false)
-	private Airline airline;
+    @JoinColumn(name = "airline_id", nullable = false)
+    private Airline airline;
 
-    @OneToMany(mappedBy = "flight",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ticket> tickets;
+
+    @Column(name = "base_Price", nullable = false)
+    private double basePrice;
 
 
 }

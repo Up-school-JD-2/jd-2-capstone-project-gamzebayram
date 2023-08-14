@@ -1,4 +1,4 @@
-package io.upschool.util;
+package io.upschool.utils;
 
 public class CreditCardUtil {
 

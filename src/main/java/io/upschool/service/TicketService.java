@@ -1,7 +1,8 @@
 package io.upschool.service;
 
+import io.upschool.enums.CabinClassType;
 import io.upschool.exception.SeatNotAvailableException;
-import io.upschool.util.CreditCardUtil;
+import io.upschool.utils.CreditCardUtil;
 import io.upschool.dto.ticket.TicketSaveRequest;
 import io.upschool.dto.ticket.TicketSaveResponse;
 import io.upschool.entity.Flight;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Random;
+
+
 
 @Service
 @RequiredArgsConstructor
@@ -57,12 +60,13 @@ public class TicketService {
 
         String ticketNumber =  generateUniqueTicketNumber();
         String maskedCardNumber = CreditCardUtil.maskCardNumber(ticketDTO.getCardNumber());
+        double ticketPrice = calculateTicketPrice(flightByFlightNumber,ticketDTO.getTicketClassType());
 
         Ticket newTicket = Ticket.builder()
                 .ticketNumber(ticketNumber)
                 .passengerName(ticketDTO.getPassengerName())
                 .cardNumber(maskedCardNumber)
-                .price(ticketDTO.getPrice())
+                .price(ticketPrice)
                 .flight(flightByFlightNumber)
                 .build();
         return ticketRepository.save(newTicket);
@@ -81,9 +85,22 @@ public class TicketService {
     }
 
 
+    private double calculateTicketPrice(Flight flight, String ticketClassType) {
+        double basePrice = flight.getBasePrice();
+        double priceMultiplier = 1.0;
+
+        if (ticketClassType.equalsIgnoreCase(CabinClassType.FIRST.name())){
+            priceMultiplier *= 3.5;
+        } if (ticketClassType.equalsIgnoreCase(CabinClassType.BUSINESS.name())){
+            priceMultiplier *= 2.0;
+        }
+        double finalPrice = basePrice * priceMultiplier;
+        return finalPrice;
+
+
 
     }
-
+}
 
 /*
     @Transactional
@@ -117,7 +134,7 @@ public class TicketService {
         }
     }
 }
-//CHECK-İN VE FİYAT ALGORİTMASI
+//CHECK-İN VE FİYAT ALGORİTMASI uçuş flight update valid PARAM TÜM DEĞER GİRMEME  ticketta aynı ıd ile aynı insan bilet alamasın null değer dönmesi eager
 
 
 
