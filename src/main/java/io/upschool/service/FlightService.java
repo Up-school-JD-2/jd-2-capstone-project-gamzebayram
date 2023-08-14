@@ -59,6 +59,10 @@ public class FlightService {
         return flight;
     }
 
+    @Transactional
+    public void save(Flight flight) {
+        flightRepository.save(flight);
+    }
 
 
     private Flight buildFlightAndSave(FlightSaveRequest flightDTO) {
@@ -88,5 +92,6 @@ public class FlightService {
         return flightNumber;
     }
 }
+
 
 

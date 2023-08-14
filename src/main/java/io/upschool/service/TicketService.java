@@ -1,14 +1,11 @@
 package io.upschool.service;
 
-import io.upschool.dto.flight.FlightSaveRequest;
-import io.upschool.dto.flight.FlightSaveResponse;
+import io.upschool.exception.SeatNotAvailableException;
+import io.upschool.util.CreditCardUtil;
 import io.upschool.dto.ticket.TicketSaveRequest;
 import io.upschool.dto.ticket.TicketSaveResponse;
-import io.upschool.entity.Airline;
 import io.upschool.entity.Flight;
-import io.upschool.entity.Route;
 import io.upschool.entity.Ticket;
-import io.upschool.exception.FlightNotFoundException;
 import io.upschool.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,7 +37,7 @@ public class TicketService {
                 .build();
     }
 
-
+    @Transactional
     public void delete(String ticketNumber) {
         var ticket = ticketRepository.findByTicketNumber(ticketNumber);
         ticket.setDelete(true);
@@ -50,8 +47,16 @@ public class TicketService {
 
         private Ticket buildTicketAndSave(TicketSaveRequest ticketDTO) {
         Flight flightByFlightNumber = flightService.getFlightByFlightNumber(ticketDTO.getFlightNumber());
+
+        if (flightByFlightNumber.getSeatCapacity() > 0 ) {
+            flightByFlightNumber.setSeatCapacity(flightByFlightNumber.getSeatCapacity()-1);
+             flightService.save(flightByFlightNumber);
+        }else {
+            throw new SeatNotAvailableException("No available seats for this flight");
+        }
+
         String ticketNumber =  generateUniqueTicketNumber();
-        String maskedCardNumber = maskCardNumber(ticketDTO.getCardNumber());
+        String maskedCardNumber = CreditCardUtil.maskCardNumber(ticketDTO.getCardNumber());
 
         Ticket newTicket = Ticket.builder()
                 .ticketNumber(ticketNumber)
@@ -76,11 +81,6 @@ public class TicketService {
     }
 
 
-        private String maskCardNumber(String cardNumber) {
-            String cleanedCardNumber = cardNumber.replaceAll("\\D", "");
-            String maskedCardNumber = cleanedCardNumber.replaceAll("\\b(\\d{6})(\\d{6})(\\d{4})", "$1******$3");
-            return maskedCardNumber;
-        }
 
     }
 

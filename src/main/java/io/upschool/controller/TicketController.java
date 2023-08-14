@@ -31,7 +31,8 @@ public class TicketController {
     }
 
 
-    @DeleteMapping("{ticketNumber}")
+
+
     public void deleteAuthor(@PathVariable("ticketNumber") String ticketNumber) {
         ticketService.delete(ticketNumber);
     }
