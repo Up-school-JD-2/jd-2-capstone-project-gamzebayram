@@ -1,5 +1,6 @@
 package io.upschool.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,9 +26,11 @@ public class Flight {
     @Column(name = "flight_number", nullable = false, unique = true)
     private String flightNumber;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", shape = JsonFormat.Shape.STRING)
     @Column(name = "departure_date",nullable = false)
     private LocalDateTime departureDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", shape = JsonFormat.Shape.STRING)
     @Column(name = "arrival_date",nullable = false)
     private LocalDateTime arrivalDate;
 

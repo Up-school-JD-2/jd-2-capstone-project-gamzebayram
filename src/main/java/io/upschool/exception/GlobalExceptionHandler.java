@@ -17,7 +17,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         System.out.println("Bir hata meydana geldi Exception:" + exception.getMessage()
                 + request.getHeader("client-type"));
 
-        var response = BaseResponse.<AirportSaveResponse>builder()
+        var response = BaseResponse.
+                <AirportSaveResponse>builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .error(exception.getMessage())
                 .isSuccess(false)

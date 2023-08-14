@@ -9,6 +9,8 @@ import io.upschool.entity.Airline;
 import io.upschool.entity.Airport;
 import io.upschool.entity.Flight;
 import io.upschool.entity.Route;
+import io.upschool.exception.AirportNotFoundException;
+import io.upschool.exception.FlightNotFoundException;
 import io.upschool.exception.RouteAlreadySavedException;
 import io.upschool.repository.FlightRepository;
 
@@ -48,6 +50,17 @@ public class FlightService {
     }
 
 
+    @Transactional(readOnly = true)
+    public Flight getFlightByFlightNumber(String flightNumber) {
+        Flight flight = flightRepository.findByFlightNumber(flightNumber);
+        if (flight == null) {
+            throw new FlightNotFoundException("Flight not found for IATA code: ");
+        }
+        return flight;
+    }
+
+
+
     private Flight buildFlightAndSave(FlightSaveRequest flightDTO) {
         Route routeByReference = routeService.getReferenceById(flightDTO.getRouteId());
         Airline airlineByReference = airlineService.getReferenceById(flightDTO.getAirlineId());
@@ -66,10 +79,14 @@ public class FlightService {
 
     private String generateUniqueFlightNumber() {
         Random random = new Random();
-        int randomNumber = random.nextInt(1000);
-        return "FL-" + randomNumber;
+        String flightNumber;
+        do {
+            int randomNumber = random.nextInt(1000);
+            flightNumber = "FL-" + randomNumber;
+        } while (flightRepository.existsByFlightNumber(flightNumber));
+
+        return flightNumber;
     }
-
-
-
 }
+
+
