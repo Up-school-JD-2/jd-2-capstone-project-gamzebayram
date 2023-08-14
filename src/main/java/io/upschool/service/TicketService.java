@@ -38,7 +38,7 @@ public class TicketService {
     }
 
 
-
+/*
     @Transactional
     public void buyTicketAndUpdateSeatCount(Long flightId) {
         Flight flight = flightRepository.findById(flightId).orElseThrow(() -> new FlightNotFoundException("Flight not found"));
@@ -70,6 +70,9 @@ public class TicketService {
         }
     }
 }
+//CHECK-İN VE FİYAT ALGORİTMASI
 
 
 
+
+ */
