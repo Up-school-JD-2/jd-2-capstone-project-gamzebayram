@@ -36,7 +36,7 @@ public class AirportService {
                 .build();
     }
 
-
+    @Transactional(readOnly = true)
     public List<AirportSaveResponse> getAllAirports() {
         List<Airport> airports = airportRepository.findAll();
         return airports.stream()
@@ -49,9 +49,13 @@ public class AirportService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public AirportSaveResponse getAirportByIataCode(String iataCode) {
 
         Airport airport = airportRepository.findByIataCodeIs(iataCode);
+        if (airport == null) {
+            throw new AirportNotFoundException("Airport not found for IATA code: ", iataCode);
+        }
 
         return AirportSaveResponse.builder()
                 .id(airport.getId())
@@ -63,10 +67,10 @@ public class AirportService {
     }
 
     @Transactional(readOnly = true)
-    public Airport findAirportByIataCode(String code) {
-        Airport airport = airportRepository.findByIataCodeIs(code);
+    public Airport findAirportByIataCode(String iataCode) {
+        Airport airport = airportRepository.findByIataCodeIs(iataCode);
         if (airport == null) {
-            throw new AirportNotFoundException("Airport not found for IATA code: ", code);
+            throw new AirportNotFoundException("Airport not found for IATA code: ", iataCode);
         }
         return airport;
     }

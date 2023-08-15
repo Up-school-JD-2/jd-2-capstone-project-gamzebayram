@@ -21,8 +21,8 @@ public class AirlineController {
     private final AirlineService airlineService;
 
 
-    @GetMapping(("{icaoCoder}"))
-    public ResponseEntity<Object>getAirlineByicaoCode(@PathVariable("icaoCode") String icaoCode) {
+    @GetMapping(("{icaoCode}"))
+    public ResponseEntity<Object> getAirlineByIcaoCode(@PathVariable("icaoCode") String icaoCode) {
         var airline = airlineService.getAirlineByIcaoCode(icaoCode);
         var response =  BaseResponse.<AirlineSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())

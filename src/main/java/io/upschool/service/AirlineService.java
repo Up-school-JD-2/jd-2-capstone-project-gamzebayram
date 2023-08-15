@@ -4,6 +4,7 @@ package io.upschool.service;
 import io.upschool.dto.airline.AirlineSaveRequest;
 import io.upschool.dto.airline.AirlineSaveResponse;
 import io.upschool.entity.Airline;
+import io.upschool.exception.AirlineNotFoundException;
 import io.upschool.repository.AirlineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,7 @@ public class AirlineService {
                 .build();
     }
 
+    @Transactional(readOnly = true)
     public List<AirlineSaveResponse> getAllAirlines() {
         List<Airline> airlines = airlineRepository.findAll();
         return airlines.stream()
@@ -47,9 +49,13 @@ public class AirlineService {
                 .collect(Collectors.toList());
     }
 
-    public AirlineSaveResponse getAirlineByIcaoCode(String icaoCod) {
+    @Transactional(readOnly = true)
+    public AirlineSaveResponse getAirlineByIcaoCode(String icaoCode) {
 
-        Airline airline = airlineRepository.findByIcaoCodeIs(icaoCod);
+        Airline airline = airlineRepository.findByIcaoCodeIs(icaoCode);
+        if (airline == null) {
+            throw new AirlineNotFoundException("Airline not found for ICAO code: ", icaoCode);
+        }
 
         return AirlineSaveResponse.builder()
                 .id(airline.getId())
@@ -63,10 +69,8 @@ public class AirlineService {
     @Transactional(readOnly = true)
     public Airline getReferenceById(Long id) {
         return airlineRepository.getReferenceById(id);
+
     }
-
-
-
 
 
 
