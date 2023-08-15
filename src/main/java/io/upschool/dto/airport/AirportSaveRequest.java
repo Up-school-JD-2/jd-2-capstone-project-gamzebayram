@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class AirportSaveRequest {
 
     @NotBlank(message = "IataCode cannot be blank")
-    @Size(min = 3, max = 3, message = "IataCode 3 alfabetik karakterden oluşur.")
+    @Size(min = 2, message = "IataCode en az 2 alfabetik karakterden oluşur.")
     private String iataCode;
 
     @NotBlank(message = "AirportName cannot be blank")

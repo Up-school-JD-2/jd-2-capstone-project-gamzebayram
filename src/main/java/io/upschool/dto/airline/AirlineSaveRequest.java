@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class AirlineSaveRequest {
 
     @NotBlank(message = "IcaoCode cannot be blank")
-    @Size(min = 4, max = 4, message = "IcaoCode 4 alfabetik karakterden oluşur.")
+    @Size(min = 2, message = "IcaoCode en az 2 alfabetik karakterden oluşur.")
     private String icaoCode;
 
     @NotBlank(message = "AirlineName cannot be blank")

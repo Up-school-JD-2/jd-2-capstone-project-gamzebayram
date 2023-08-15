@@ -28,7 +28,7 @@ public class FlightSaveRequest {
     private LocalDateTime arrivalDate;
 
     @NotBlank(message = "SeatCapacity cannot be blank")
-    @Size(min = 2, max = 550,message = "Güncel uçak üretimlerine göre koltuk kapasitesi minimum 2 maksimum 550 olabilir.")
+    @Size(min = 2, message = "Koltuk kapasitesi minimum 2  olabilir.")
     private int seatCapacity;
 
     @NotBlank(message = "BasePrice cannot be blank")
