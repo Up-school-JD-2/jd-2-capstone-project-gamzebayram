@@ -56,9 +56,9 @@ public class TicketController {
 
     }
 
-    @GetMapping
-    public ResponseEntity<Object>getAllTickets() {
-        var tickets = ticketService.getAllTickets();
+    @GetMapping(("{flightNumber}"))
+    public ResponseEntity<Object>getAllTicketsByFlight(@PathVariable("flightNumber") String flightNumber) {
+        var tickets = ticketService.getAllTicketsByFlight(flightNumber);
         var response =  BaseResponse.<List<TicketSaveResponse>>builder()
                 .status(HttpStatus.OK.value())
                 .isSuccess(true)

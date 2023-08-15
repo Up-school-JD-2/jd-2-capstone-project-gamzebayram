@@ -90,8 +90,8 @@ public class TicketService {
 
 
     @Transactional(readOnly = true)
-    public List<TicketSaveResponse> getAllTickets() {
-        List<Ticket> tickets = ticketRepository.findAll();
+    public List<TicketSaveResponse> getAllTicketsByFlight(String flightNumber) {
+        List<Ticket> tickets = ticketRepository.getAllByFlight_FlightNumber(flightNumber);
         return tickets.stream()
                 .map(ticket -> new TicketSaveResponse(
                         ticket.getId(),

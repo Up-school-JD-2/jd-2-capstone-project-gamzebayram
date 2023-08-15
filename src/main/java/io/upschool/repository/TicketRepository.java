@@ -21,5 +21,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     Ticket findTicketByFlight_IdAndPassengerName(Long flightId, String passengerName);
 
+    List<Ticket> getAllByFlight_FlightNumber(@Param("flightNumber") String flightNumber);
+
 
 }
