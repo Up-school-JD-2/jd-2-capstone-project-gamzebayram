@@ -3,13 +3,12 @@ package io.upschool.service;
 
 import io.upschool.dto.flight.FlightSaveRequest;
 import io.upschool.dto.flight.FlightSaveResponse;
+import io.upschool.dto.ticket.TicketSaveResponse;
 import io.upschool.entity.Airline;
 import io.upschool.entity.Flight;
 import io.upschool.entity.Route;
-import io.upschool.exception.AirlineNotFoundException;
-import io.upschool.exception.AirportNotFoundException;
-import io.upschool.exception.FlightNotFoundException;
-import io.upschool.exception.RouteNotFoundException;
+import io.upschool.entity.Ticket;
+import io.upschool.exception.*;
 import io.upschool.repository.FlightRepository;
 
 import lombok.RequiredArgsConstructor;

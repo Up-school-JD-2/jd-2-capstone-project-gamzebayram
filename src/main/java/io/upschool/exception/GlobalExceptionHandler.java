@@ -150,6 +150,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(response);
     }
 
+    @ExceptionHandler(TicketAlreadySavedException.class)
+    public ResponseEntity<BaseResponse<TicketSaveResponse>> handleTicketAlreadySavedException(final TicketAlreadySavedException exception,
+                                                                                          final WebRequest webRequest){
+        System.out.println("Error acquired "+exception.getMessage());
+        System.out.println();
+        System.out.println();
+        System.out.println(webRequest.toString());
+        var response= BaseResponse.<TicketSaveResponse>builder()
+                .status(HttpStatus.CONFLICT.value())
+                .error(exception.getMessage())
+                .isSuccess(false)
+                .build();
+        return ResponseEntity.badRequest().body(response);
+    }
+
     @ExceptionHandler(AirlineNotFoundException.class)
     public ResponseEntity<BaseResponse<AirlineSaveResponse>> handleAirlineNotFoundException(final AirlineNotFoundException exception,
                                                                                             final WebRequest webRequest){

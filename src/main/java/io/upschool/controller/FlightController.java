@@ -7,6 +7,7 @@ import io.upschool.dto.airline.AirlineSaveResponse;
 import io.upschool.dto.flight.FlightSaveRequest;
 import io.upschool.dto.flight.FlightSaveResponse;
 import io.upschool.dto.route.RouteSaveResponse;
+import io.upschool.dto.ticket.TicketSaveResponse;
 import io.upschool.entity.Flight;
 import io.upschool.service.FlightService;
 import jakarta.validation.Valid;
