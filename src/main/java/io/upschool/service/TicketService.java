@@ -41,6 +41,7 @@ public class TicketService {
                 .cardNumber(ticketResponse.getCardNumber())
                 .ticketPrice(ticketResponse.getTicketPrice())
                 .flightNumber(ticketResponse.getFlight().getFlightNumber())
+                .ticketClassType(ticketResponse.getTicketClassType())
                 .build();
     }
 
@@ -58,6 +59,7 @@ public class TicketService {
                 .cardNumber(ticket.getCardNumber())
                 .ticketPrice(ticket.getTicketPrice())
                 .flightNumber(ticket.getFlight().getFlightNumber())
+                .ticketClassType(ticket.getTicketClassType())
                 .build();
 
     }
@@ -79,6 +81,7 @@ public class TicketService {
                 .cardNumber(ticket.getCardNumber())
                 .ticketPrice(ticket.getTicketPrice())
                 .flightNumber(ticket.getFlight().getFlightNumber())
+                .ticketClassType(ticket.getTicketClassType())
                 .build();
 
     }
@@ -107,6 +110,8 @@ public class TicketService {
                 .cardNumber(maskedCardNumber)
                 .ticketPrice(ticketPrice)
                 .flight(flightByFlightNumber)
+                .isDelete(ticketDTO.isDelete())
+                .ticketClassType(ticketDTO.getTicketClassType())
                 .build();
         return ticketRepository.save(newTicket);
     }
