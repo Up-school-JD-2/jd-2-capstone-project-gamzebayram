@@ -15,7 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -76,14 +78,32 @@ public class TicketService {
         return TicketSaveResponse.builder()
                 .id(ticket.getId())
                 .ticketNumber(ticket.getTicketNumber())
-                .isDelete(ticket.isDelete())
                 .passengerName(ticket.getPassengerName())
+                .ticketClassType(ticket.getTicketClassType())
                 .cardNumber(ticket.getCardNumber())
                 .ticketPrice(ticket.getTicketPrice())
                 .flightNumber(ticket.getFlight().getFlightNumber())
-                .ticketClassType(ticket.getTicketClassType())
+                .isDelete(ticket.isDelete())
                 .build();
 
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<TicketSaveResponse> getAllTickets() {
+        List<Ticket> tickets = ticketRepository.findAll();
+        return tickets.stream()
+                .map(ticket -> new TicketSaveResponse(
+                        ticket.getId(),
+                        ticket.getTicketNumber(),
+                        ticket.getPassengerName(),
+                        ticket.getTicketClassType(),
+                        ticket.getCardNumber(),
+                        ticket.getTicketPrice(),
+                        ticket.getFlight().getFlightNumber(),
+                        ticket.isDelete()
+                ))
+                .collect(Collectors.toList());
     }
 
 
@@ -150,7 +170,7 @@ public class TicketService {
             throw new FlightNotFoundException("Flight not found.");
         }
         Ticket alreadyBuyTicket = ticketRepository.findTicketByFlight_IdAndPassengerName(findId, ticketDTO.getPassengerName());
-        if (alreadyBuyTicket != null ) {
+        if (alreadyBuyTicket != null) {
             throw new TicketAlreadySavedException("Passenger already buy ticket for this flight.");
         }
     }
