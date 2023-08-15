@@ -68,11 +68,11 @@ public class TicketService {
     @Transactional
     public TicketSaveResponse delete(String ticketNumber) {
         Ticket ticket = ticketRepository.findByTicketNumber(ticketNumber);
-        if (ticket.isDelete()) {
-            throw new TicketAlreadyDeletedException("Ticket already deleted.");
-        }
+
         if (ticket == null) {
             throw new TicketNotFoundException("Ticket not found.");
+        }  if (ticket.isDelete()) {
+            throw new TicketAlreadyDeletedException("Ticket already deleted.");
         }
         ticket.setDelete(true);
         ticket.getFlight().setSeatCapacity(ticket.getFlight().getSeatCapacity() + 1);
