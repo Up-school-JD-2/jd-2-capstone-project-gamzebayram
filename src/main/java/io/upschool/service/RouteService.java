@@ -28,10 +28,10 @@ public class RouteService {
     private final AirportService airportService;
 
     @Transactional(readOnly = true)
-    public RouteSaveResponse getRoutetById(Long id) {
+    public RouteSaveResponse getRouteById(Long id) {
         Route route = routeRepository.getRouteByIdIs(id);
         if (route == null) {
-            throw new RouteNotFoundException("Route not found for IATA code: ");
+            throw new RouteNotFoundException("Route not found.");
         }
         return RouteSaveResponse.builder()
                 .id(route.getId())
@@ -58,13 +58,14 @@ public class RouteService {
 
 
 
+    @Transactional(readOnly = true)
     public List<RouteSaveResponse> getAllRoutes() {
         List<Route> routes = routeRepository.findAll();
         return routes.stream()
                 .map(route -> new RouteSaveResponse(
                         route.getId(),
                         route.getDepartureAirport().getAirportName(),
-                        route.getDepartureAirport().getAirportName(),
+                        route.getDepartureAirport().getAirportLocation(),
                         route.getArrivalAirport().getAirportName(),
                         route.getArrivalAirport().getAirportLocation()
                 ))
@@ -92,22 +93,9 @@ public class RouteService {
     private void checkIsRouteAlreadySaved(RouteSaveRequest routeDTO) {
         Route findRouteByDepartureAirport_IataCodeAndArrivalAirport_IataCode = routeRepository.findRouteByDepartureAirport_IataCodeAndArrivalAirport_IataCode(routeDTO.getDepartureAirportIataCode(), routeDTO.getArrivalAirportIataCode());
         if (findRouteByDepartureAirport_IataCodeAndArrivalAirport_IataCode != null ) {
-            throw new RouteAlreadySavedException("Route already exists");
+            throw new RouteAlreadySavedException("Route already exists.");
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

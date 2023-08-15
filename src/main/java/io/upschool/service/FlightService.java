@@ -1,24 +1,21 @@
 package io.upschool.service;
 
 
-import io.upschool.dto.airport.AirportSaveResponse;
 import io.upschool.dto.flight.FlightSaveRequest;
 import io.upschool.dto.flight.FlightSaveResponse;
-import io.upschool.dto.route.RouteSaveRequest;
-import io.upschool.dto.route.RouteSaveResponse;
 import io.upschool.entity.Airline;
-import io.upschool.entity.Airport;
 import io.upschool.entity.Flight;
 import io.upschool.entity.Route;
-import io.upschool.exception.AirportNotFoundException;
 import io.upschool.exception.FlightNotFoundException;
-import io.upschool.exception.RouteAlreadySavedException;
 import io.upschool.repository.FlightRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +24,31 @@ public class FlightService {
 
 
     private final FlightRepository flightRepository;
-    private final AirportService airportService;
     private final AirlineService airlineService;
     private final RouteService routeService;
+
+
+    @Transactional(readOnly = true)
+    public List<FlightSaveResponse> getAllFlights() {
+        List<Flight> flights = flightRepository.findAll();
+        return flights.stream()
+                .map(flight -> new FlightSaveResponse(
+                        flight.getId(),
+                        flight.getFlightNumber(),
+                        flight.getDepartureDate(),
+                        flight.getArrivalDate(),
+                        flight.getRoute().getDepartureAirport().getAirportName(),
+                        flight.getRoute().getDepartureAirport().getAirportLocation(),
+                        flight.getRoute().getArrivalAirport().getAirportName(),
+                        flight.getRoute().getArrivalAirport().getAirportLocation(),
+                        flight.getAirline().getIcaoCode(),
+                        flight.getAirline().getAirlineName(),
+                        flight.getSeatCapacity(),
+                        flight.getBasePrice()
+                ))
+                .collect(Collectors.toList());
+    }
+
 
     @Transactional
     public FlightSaveResponse createFlight(FlightSaveRequest flightDTO) {
@@ -47,6 +66,7 @@ public class FlightService {
                 .airlineIcaoCode(flightResponse.getAirline().getIcaoCode())
                 .airlineName(flightResponse.getAirline().getAirlineName())
                 .seatCapacity(flightResponse.getSeatCapacity())
+                .basePrice(flightResponse.getBasePrice())
                 .build();
     }
 
@@ -55,7 +75,7 @@ public class FlightService {
     public FlightSaveResponse getFlightByFlightNumber(String flightNumber) {
         Flight flight = flightRepository.findByFlightNumber(flightNumber);
         if (flight == null) {
-            throw new FlightNotFoundException("Flight not found for IATA code: ");
+            throw new FlightNotFoundException("Flight not found.");
         }
         return FlightSaveResponse.builder()
                 .id(flight.getId())
@@ -69,6 +89,7 @@ public class FlightService {
                 .airlineIcaoCode(flight.getAirline().getIcaoCode())
                 .airlineName(flight.getAirline().getAirlineName())
                 .seatCapacity(flight.getSeatCapacity())
+                .basePrice(flight.getBasePrice())
                 .build();
     }
 
@@ -78,29 +99,34 @@ public class FlightService {
     }
 
 
+    @Transactional(readOnly = true)
+    public Flight findFlightByFlightNumber(String flightNumber) {
+        Flight flight = flightRepository.findByFlightNumber(flightNumber);
+        if (flight == null) {
+            throw new FlightNotFoundException("Flight not found.");
+        }
+        return flight;
+    }
+
+
     private Flight buildFlightAndSave(FlightSaveRequest flightDTO) {
         Route routeByReference = routeService.getReferenceById(flightDTO.getRouteId());
         Airline airlineByReference = airlineService.getReferenceById(flightDTO.getAirlineId());
-        String flightNumber =  generateUniqueFlightNumber();
+        String flightNumber = generateUniqueFlightNumber();
 
         Flight newFlight = Flight.builder()
                 .flightNumber(flightNumber)
                 .departureDate(flightDTO.getDepartureDate())
                 .arrivalDate(flightDTO.getArrivalDate())
                 .seatCapacity(flightDTO.getSeatCapacity())
+                .basePrice(flightDTO.getBasePrice())
                 .route(routeByReference)
                 .airline(airlineByReference)
                 .build();
         return flightRepository.save(newFlight);
     }
-    @Transactional(readOnly = true)
-    public Flight findFlightByFlightNumber(String flightNumber) {
-        Flight flight = flightRepository.findByFlightNumber(flightNumber);
-        if (flight == null) {
-            throw new FlightNotFoundException("Airport not found for IATA code: ");
-        }
-        return flight;
-    }
+
+
     private String generateUniqueFlightNumber() {
         Random random = new Random();
         String flightNumber;

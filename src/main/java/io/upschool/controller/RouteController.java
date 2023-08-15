@@ -44,9 +44,9 @@ public class RouteController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<Object>getRoutetById(@PathVariable("id") Long id) {
-        var route = routeService.getRoutetById(id);
-        var response =  BaseResponse.<Object>builder()
+    public ResponseEntity<Object>getRouteById(@PathVariable("id") Long id) {
+        var route = routeService.getRouteById(id);
+        var response =  BaseResponse.<RouteSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())
                 .isSuccess(true)
                 .data(route)

@@ -47,7 +47,7 @@ public class TicketService {
     public TicketSaveResponse getTicketByTicketNumber(String ticketNumber) {
         Ticket ticket = ticketRepository.findByTicketNumber(ticketNumber);
         if (ticket == null) {
-            throw new TicketNotFoundException("Ticket not found for IATA code: ");
+            throw new TicketNotFoundException("Ticket not found.");
         }
         return TicketSaveResponse.builder()
                 .id(ticket.getId())
@@ -66,7 +66,7 @@ public class TicketService {
     public TicketSaveResponse delete(String ticketNumber) {
         Ticket ticket = ticketRepository.findByTicketNumber(ticketNumber);
         if (ticket == null) {
-            throw new TicketNotFoundException("Ticket not found for IATA code: ");
+            throw new TicketNotFoundException("Ticket not found.");
         }
         ticket.setDelete(true);
         ticketRepository.save(ticket);
@@ -90,7 +90,7 @@ public class TicketService {
             flightByFlightNumber.setSeatCapacity(flightByFlightNumber.getSeatCapacity() - 1);
             flightService.save(flightByFlightNumber);
         } else {
-            throw new SeatNotAvailableException("No available seats for this flight");
+            throw new SeatNotAvailableException("No available seats for this flight.");
         }
 
         String ticketNumber = generateUniqueTicketNumber();
