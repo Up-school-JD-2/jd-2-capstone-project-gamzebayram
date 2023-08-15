@@ -5,6 +5,7 @@ import io.upschool.dto.airport.AirportSaveRequest;
 import io.upschool.dto.airport.AirportSaveResponse;
 import io.upschool.entity.Airport;
 import io.upschool.service.AirportService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class AirportController {
     }
 
     @GetMapping(("/byIataCode"))
-    public ResponseEntity<Object>getAirportByIataCode(@RequestBody AirportSaveRequest request) {
+    public ResponseEntity<Object>getAirportByIataCode(@Valid @RequestBody AirportSaveRequest request) {
         var airport = airportService.getAirportByIataCode(request);
         var response =  BaseResponse.<AirportSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())
@@ -44,7 +45,7 @@ public class AirportController {
 
 
     @PostMapping
-    public ResponseEntity<Object> createAirport(@RequestBody AirportSaveRequest request) {
+    public ResponseEntity<Object> createAirport(@Valid @RequestBody AirportSaveRequest request) {
         var airportSaveResponse = airportService.createAirport(request);
         var response =  BaseResponse.<AirportSaveResponse>builder()
                 .status(HttpStatus.CREATED.value())

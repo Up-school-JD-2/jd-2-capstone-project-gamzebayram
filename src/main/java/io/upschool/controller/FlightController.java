@@ -23,7 +23,7 @@ public class FlightController {
     private final FlightService flightService;
 
     @PostMapping
-    public ResponseEntity<Object> createFlight(@RequestBody FlightSaveRequest request) {
+    public ResponseEntity<Object> createFlight(@Valid @RequestBody FlightSaveRequest request) {
         var flightSaveResponse = flightService.createFlight(request);
         var response =  BaseResponse.<FlightSaveResponse>builder()
                 .status(HttpStatus.CREATED.value())

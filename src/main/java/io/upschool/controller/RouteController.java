@@ -4,6 +4,7 @@ import io.upschool.dto.BaseResponse;
 import io.upschool.dto.route.RouteSaveRequest;
 import io.upschool.dto.route.RouteSaveResponse;
 import io.upschool.service.RouteService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class RouteController {
 
 
     @PostMapping
-    public ResponseEntity<Object> createRoute(@RequestBody RouteSaveRequest request) {
+    public ResponseEntity<Object> createRoute(@Valid @RequestBody RouteSaveRequest request) {
         var routeSaveResponse = routeService.createRoute(request);
         var response =  BaseResponse.<RouteSaveResponse>builder()
                 .status(HttpStatus.CREATED.value())

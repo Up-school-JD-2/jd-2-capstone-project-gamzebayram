@@ -9,6 +9,13 @@ public class AirportNotFoundException extends RuntimeException {
         super(message);
         this.airportCode = airportCode;
     }
+
+    public AirportNotFoundException(String message, String airportCode, Throwable cause) {
+        super(message, cause);
+        this.airportCode = airportCode;
+    }
+
+
     public String getAirportCode() {
         return airportCode;
     }

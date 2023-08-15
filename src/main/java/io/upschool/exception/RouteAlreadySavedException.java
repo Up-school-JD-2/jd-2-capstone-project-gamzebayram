@@ -5,4 +5,10 @@ public class RouteAlreadySavedException extends RuntimeException  {
 
         super(message);
     }
+
+    public RouteAlreadySavedException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+
 }

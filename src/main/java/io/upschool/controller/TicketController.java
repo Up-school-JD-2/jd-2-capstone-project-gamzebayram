@@ -6,6 +6,7 @@ import io.upschool.dto.flight.FlightSaveResponse;
 import io.upschool.dto.ticket.TicketSaveRequest;
 import io.upschool.dto.ticket.TicketSaveResponse;
 import io.upschool.service.TicketService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class TicketController {
 
 
     @PostMapping
-    public ResponseEntity<Object> createTicket(@RequestBody TicketSaveRequest request) {
+    public ResponseEntity<Object> createTicket(@Valid @RequestBody TicketSaveRequest request) {
         var ticketSaveResponse = ticketService.createTicket(request);
         var response =  BaseResponse.<TicketSaveResponse>builder()
                 .status(HttpStatus.CREATED.value())

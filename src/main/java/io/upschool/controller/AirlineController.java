@@ -5,6 +5,7 @@ import io.upschool.dto.airline.AirlineSaveRequest;
 import io.upschool.dto.airline.AirlineSaveResponse;
 import io.upschool.entity.Airline;
 import io.upschool.service.AirlineService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class AirlineController {
     private final AirlineService airlineService;
 
     @PostMapping
-    public ResponseEntity<Object> createAirline(@RequestBody AirlineSaveRequest request) {
+    public ResponseEntity<Object> createAirline(@Valid @RequestBody AirlineSaveRequest request) {
         var airlineSaveResponse = airlineService.createAirline(request);
         var response =  BaseResponse.<AirlineSaveResponse>builder()
                 .status(HttpStatus.CREATED.value())
@@ -43,7 +44,7 @@ public class AirlineController {
     }
 
     @GetMapping(("/byIcaoCode"))
-    public ResponseEntity<Object>getAirlineByIcaoCode(@RequestBody AirlineSaveRequest request) {
+    public ResponseEntity<Object>getAirlineByIcaoCode(@Valid @RequestBody AirlineSaveRequest request) {
         var airline = airlineService.getAirlineByIcaoCode(request);
         var response =  BaseResponse.<AirlineSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())
