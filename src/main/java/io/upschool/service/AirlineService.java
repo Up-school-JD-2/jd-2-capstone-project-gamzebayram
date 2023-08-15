@@ -47,9 +47,9 @@ public class AirlineService {
                 .collect(Collectors.toList());
     }
 
-    public AirlineSaveResponse getAirlineByIcaoCode(AirlineSaveRequest airlineDTO) {
+    public AirlineSaveResponse getAirlineByIcaoCode(String icaoCod) {
 
-        Airline airline = airlineRepository.findByIcaoCodeIs(airlineDTO.getIcaoCode());
+        Airline airline = airlineRepository.findByIcaoCodeIs(icaoCod);
 
         return AirlineSaveResponse.builder()
                 .id(airline.getId())

@@ -1,6 +1,7 @@
 package io.upschool.controller;
 
 import io.upschool.dto.BaseResponse;
+import io.upschool.dto.airline.AirlineSaveResponse;
 import io.upschool.dto.airport.AirportSaveRequest;
 import io.upschool.dto.airport.AirportSaveResponse;
 import io.upschool.entity.Airport;
@@ -32,9 +33,10 @@ public class AirportController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(("/byIataCode"))
-    public ResponseEntity<Object>getAirportByIataCode(@Valid @RequestBody AirportSaveRequest request) {
-        var airport = airportService.getAirportByIataCode(request);
+
+    @GetMapping(("{iataCode}"))
+    public ResponseEntity<Object>getAirportByIataCode(@PathVariable("iataCode") String iataCode) {
+        var airport = airportService.getAirportByIataCode(iataCode);
         var response =  BaseResponse.<AirportSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())
                 .isSuccess(true)

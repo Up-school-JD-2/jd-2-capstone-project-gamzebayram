@@ -1,7 +1,10 @@
 package io.upschool.service;
 
+import io.upschool.dto.flight.FlightSaveResponse;
 import io.upschool.enums.CabinClassType;
+import io.upschool.exception.FlightNotFoundException;
 import io.upschool.exception.SeatNotAvailableException;
+import io.upschool.exception.TicketNotFoundException;
 import io.upschool.utils.CreditCardUtil;
 import io.upschool.dto.ticket.TicketSaveRequest;
 import io.upschool.dto.ticket.TicketSaveResponse;
@@ -40,27 +43,59 @@ public class TicketService {
                 .build();
     }
 
-    @Transactional
-    public void delete(String ticketNumber) {
-        var ticket = ticketRepository.findByTicketNumber(ticketNumber);
-        ticket.setDelete(true);
-        ticketRepository.save(ticket);
+    @Transactional(readOnly = true)
+    public TicketSaveResponse getTicketByTicketNumber(String ticketNumber) {
+        Ticket ticket = ticketRepository.findByTicketNumber(ticketNumber);
+        if (ticket == null) {
+            throw new TicketNotFoundException("Ticket not found for IATA code: ");
+        }
+        return TicketSaveResponse.builder()
+                .id(ticket.getId())
+                .ticketNumber(ticket.getTicketNumber())
+                .isDelete(ticket.isDelete())
+                .passengerName(ticket.getPassengerName())
+                .cardNumber(ticket.getCardNumber())
+                .ticketPrice(ticket.getTicketPrice())
+                .flightNumber(ticket.getFlight().getFlightNumber())
+                .build();
+
     }
 
 
-        private Ticket buildTicketAndSave(TicketSaveRequest ticketDTO) {
-        Flight flightByFlightNumber = flightService.getFlightByFlightNumber(ticketDTO.getFlightNumber());
+    @Transactional
+    public TicketSaveResponse delete(String ticketNumber) {
+        Ticket ticket = ticketRepository.findByTicketNumber(ticketNumber);
+        if (ticket == null) {
+            throw new TicketNotFoundException("Ticket not found for IATA code: ");
+        }
+        ticket.setDelete(true);
+        ticketRepository.save(ticket);
+        return TicketSaveResponse.builder()
+                .id(ticket.getId())
+                .ticketNumber(ticket.getTicketNumber())
+                .isDelete(ticket.isDelete())
+                .passengerName(ticket.getPassengerName())
+                .cardNumber(ticket.getCardNumber())
+                .ticketPrice(ticket.getTicketPrice())
+                .flightNumber(ticket.getFlight().getFlightNumber())
+                .build();
 
-        if (flightByFlightNumber.getSeatCapacity() > 0 ) {
-            flightByFlightNumber.setSeatCapacity(flightByFlightNumber.getSeatCapacity()-1);
-             flightService.save(flightByFlightNumber);
-        }else {
+    }
+
+
+    private Ticket buildTicketAndSave(TicketSaveRequest ticketDTO) {
+        Flight flightByFlightNumber = flightService.findFlightByFlightNumber(ticketDTO.getFlightNumber());
+
+        if (flightByFlightNumber.getSeatCapacity() > 0) {
+            flightByFlightNumber.setSeatCapacity(flightByFlightNumber.getSeatCapacity() - 1);
+            flightService.save(flightByFlightNumber);
+        } else {
             throw new SeatNotAvailableException("No available seats for this flight");
         }
 
-        String ticketNumber =  generateUniqueTicketNumber();
+        String ticketNumber = generateUniqueTicketNumber();
         String maskedCardNumber = CreditCardUtil.maskCardNumber(ticketDTO.getCardNumber());
-        double ticketPrice = calculateTicketPrice(flightByFlightNumber,ticketDTO.getTicketClassType());
+        double ticketPrice = calculateTicketPrice(flightByFlightNumber, ticketDTO.getTicketClassType());
 
         Ticket newTicket = Ticket.builder()
                 .ticketNumber(ticketNumber)
@@ -89,14 +124,14 @@ public class TicketService {
         double basePrice = flight.getBasePrice();
         double priceMultiplier = 1.0;
 
-        if (ticketClassType.equalsIgnoreCase(CabinClassType.FIRST.name())){
+        if (ticketClassType.equalsIgnoreCase(CabinClassType.FIRST.name())) {
             priceMultiplier *= 3.5;
-        } if (ticketClassType.equalsIgnoreCase(CabinClassType.BUSINESS.name())){
+        }
+        if (ticketClassType.equalsIgnoreCase(CabinClassType.BUSINESS.name())) {
             priceMultiplier *= 2.0;
         }
         double finalPrice = basePrice * priceMultiplier;
         return finalPrice;
-
 
 
     }

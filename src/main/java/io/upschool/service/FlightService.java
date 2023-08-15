@@ -1,6 +1,7 @@
 package io.upschool.service;
 
 
+import io.upschool.dto.airport.AirportSaveResponse;
 import io.upschool.dto.flight.FlightSaveRequest;
 import io.upschool.dto.flight.FlightSaveResponse;
 import io.upschool.dto.route.RouteSaveRequest;
@@ -51,12 +52,24 @@ public class FlightService {
 
 
     @Transactional(readOnly = true)
-    public Flight getFlightByFlightNumber(String flightNumber) {
+    public FlightSaveResponse getFlightByFlightNumber(String flightNumber) {
         Flight flight = flightRepository.findByFlightNumber(flightNumber);
         if (flight == null) {
             throw new FlightNotFoundException("Flight not found for IATA code: ");
         }
-        return flight;
+        return FlightSaveResponse.builder()
+                .id(flight.getId())
+                .flightNumber(flight.getFlightNumber())
+                .departureDate(flight.getDepartureDate())
+                .arrivalDate(flight.getArrivalDate())
+                .departureAirportName(flight.getRoute().getDepartureAirport().getAirportName())
+                .departureAirportLocation(flight.getRoute().getDepartureAirport().getAirportLocation())
+                .arrivalAirportName(flight.getRoute().getArrivalAirport().getAirportName())
+                .arrivalAirportLocation(flight.getRoute().getArrivalAirport().getAirportLocation())
+                .airlineIcaoCode(flight.getAirline().getIcaoCode())
+                .airlineName(flight.getAirline().getAirlineName())
+                .seatCapacity(flight.getSeatCapacity())
+                .build();
     }
 
     @Transactional
@@ -80,7 +93,14 @@ public class FlightService {
                 .build();
         return flightRepository.save(newFlight);
     }
-
+    @Transactional(readOnly = true)
+    public Flight findFlightByFlightNumber(String flightNumber) {
+        Flight flight = flightRepository.findByFlightNumber(flightNumber);
+        if (flight == null) {
+            throw new FlightNotFoundException("Airport not found for IATA code: ");
+        }
+        return flight;
+    }
     private String generateUniqueFlightNumber() {
         Random random = new Random();
         String flightNumber;

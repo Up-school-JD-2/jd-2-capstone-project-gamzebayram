@@ -20,6 +20,18 @@ public class AirlineController {
 
     private final AirlineService airlineService;
 
+
+    @GetMapping(("{icaoCoder}"))
+    public ResponseEntity<Object>getAirlineByicaoCode(@PathVariable("icaoCode") String icaoCode) {
+        var airline = airlineService.getAirlineByIcaoCode(icaoCode);
+        var response =  BaseResponse.<AirlineSaveResponse>builder()
+                .status(HttpStatus.FOUND.value())
+                .isSuccess(true)
+                .data(airline)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping
     public ResponseEntity<Object> createAirline(@Valid @RequestBody AirlineSaveRequest request) {
         var airlineSaveResponse = airlineService.createAirline(request);
@@ -42,18 +54,6 @@ public class AirlineController {
                 .build();
         return ResponseEntity.ok(response);
     }
-
-    @GetMapping(("/byIcaoCode"))
-    public ResponseEntity<Object>getAirlineByIcaoCode(@Valid @RequestBody AirlineSaveRequest request) {
-        var airline = airlineService.getAirlineByIcaoCode(request);
-        var response =  BaseResponse.<AirlineSaveResponse>builder()
-                .status(HttpStatus.FOUND.value())
-                .isSuccess(true)
-                .data(airline)
-                .build();
-        return ResponseEntity.ok(response);
-    }
-
 
 
 

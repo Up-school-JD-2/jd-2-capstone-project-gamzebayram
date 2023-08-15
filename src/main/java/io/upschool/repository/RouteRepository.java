@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface RouteRepository extends JpaRepository<Route, Long> {
 
 
+     Route getRouteByIdIs(@Param("id") Long id);
     Route findRouteByDepartureAirport_IataCodeAndArrivalAirport_IataCode(@Param("departureAirportIataCode") String departureAirportIataCode, @Param("arrivalAirportIataCode") String arrivalAirportIataCode);
 
 

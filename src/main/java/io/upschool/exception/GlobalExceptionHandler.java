@@ -25,11 +25,10 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+
+
     public ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
-            HttpHeaders headers,
-            HttpStatus status,
             WebRequest request) {
 
         List<String> errors = ex.getBindingResult()
@@ -41,7 +40,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         String errorMessage = "Validation Error: " + String.join(", ", errors);
 
         var response = BaseResponse
-                .<AirportSaveResponse>builder()
+                .<Object>builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .error(errorMessage)
                 .isSuccess(false)
@@ -50,7 +49,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(response);
     }
 
-    @ExceptionHandler(NoHandlerFoundException.class)
+
+    @Override
     public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex,
                                                                 HttpHeaders headers,
                                                                 HttpStatusCode status,
@@ -59,7 +59,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         final var errorMessage =
                 MessageFormat.format("No handler found for {0} {1}", ex.getHttpMethod(), ex.getRequestURL());
         System.out.println(errorMessage);
-        var response = BaseResponse.<AirportSaveResponse>builder()
+        var response = BaseResponse.<Object>builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .isSuccess(false)
                 .build();
@@ -68,13 +68,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleAll(final Exception exception, final WebRequest request) {
-        System.out.println("Bir hata meydana geldi Exception:" + exception.getMessage()
+    public ResponseEntity<?> handleAll(final Exception exception, final WebRequest request) {
+        System.out.println("Bir hata meydana geldi. Exception:" + exception.getMessage()
                 + request.getHeader("client-type"));
 
         var response = BaseResponse.
-                <AirportSaveResponse>builder()
-                .status(HttpStatus.BAD_REQUEST.value())
+                <Object>builder()
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
                 .build();
@@ -90,7 +90,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         System.out.println();
         System.out.println(webRequest.toString());
         var response= BaseResponse.<AirportSaveResponse>builder()
-                .status(HttpStatus.BAD_REQUEST.value())
+                .status(HttpStatus.NOT_FOUND.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
                 .build();

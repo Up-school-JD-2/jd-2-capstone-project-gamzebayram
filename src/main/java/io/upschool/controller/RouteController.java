@@ -43,7 +43,16 @@ public class RouteController {
     }
 
 
-
+    @GetMapping("{id}")
+    public ResponseEntity<Object>getRoutetById(@PathVariable("id") Long id) {
+        var route = routeService.getRoutetById(id);
+        var response =  BaseResponse.<Object>builder()
+                .status(HttpStatus.FOUND.value())
+                .isSuccess(true)
+                .data(route)
+                .build();
+        return ResponseEntity.ok(response);
+    }
 
 
 }

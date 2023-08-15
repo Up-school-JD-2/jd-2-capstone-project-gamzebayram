@@ -2,11 +2,15 @@ package io.upschool.service;
 
 
 
+import io.upschool.dto.flight.FlightSaveResponse;
 import io.upschool.dto.route.RouteSaveRequest;
 import io.upschool.dto.route.RouteSaveResponse;
+import io.upschool.entity.Flight;
 import io.upschool.entity.Route;
 import io.upschool.entity.Airport;
+import io.upschool.exception.FlightNotFoundException;
 import io.upschool.exception.RouteAlreadySavedException;
+import io.upschool.exception.RouteNotFoundException;
 import io.upschool.repository.RouteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +27,20 @@ public class RouteService {
     private final RouteRepository routeRepository;
     private final AirportService airportService;
 
-
+    @Transactional(readOnly = true)
+    public RouteSaveResponse getRoutetById(Long id) {
+        Route route = routeRepository.getRouteByIdIs(id);
+        if (route == null) {
+            throw new RouteNotFoundException("Route not found for IATA code: ");
+        }
+        return RouteSaveResponse.builder()
+                .id(route.getId())
+                .departureAirportName(route.getDepartureAirport().getAirportName())
+                .departureAirportLocation(route.getDepartureAirport().getAirportLocation())
+                .arrivalAirportName(route.getArrivalAirport().getAirportName())
+                .arrivalAirportLocation(route.getArrivalAirport().getAirportLocation())
+                .build();
+    }
 
     @Transactional
     public RouteSaveResponse createRoute(RouteSaveRequest routeDTO) {

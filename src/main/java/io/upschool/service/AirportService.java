@@ -49,9 +49,9 @@ public class AirportService {
                 .collect(Collectors.toList());
     }
 
-    public AirportSaveResponse getAirportByIataCode(AirportSaveRequest airportDTO) {
+    public AirportSaveResponse getAirportByIataCode(String iataCode) {
 
-        Airport airport = airportRepository.findByIataCodeIs(airportDTO.getIataCode());
+        Airport airport = airportRepository.findByIataCodeIs(iataCode);
 
         return AirportSaveResponse.builder()
                 .id(airport.getId())
