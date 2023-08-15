@@ -2,13 +2,8 @@ package io.upschool.controller;
 
 
 import io.upschool.dto.BaseResponse;
-import io.upschool.dto.airline.AirlineSaveRequest;
-import io.upschool.dto.airline.AirlineSaveResponse;
 import io.upschool.dto.flight.FlightSaveRequest;
 import io.upschool.dto.flight.FlightSaveResponse;
-import io.upschool.dto.route.RouteSaveResponse;
-import io.upschool.dto.ticket.TicketSaveResponse;
-import io.upschool.entity.Flight;
 import io.upschool.service.FlightService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +32,8 @@ public class FlightController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(("{flight_number}"))
-    public ResponseEntity<Object>getFlightByFlightNumber(@PathVariable("flight_number") String flightNumber) {
+    @GetMapping(("{flightNumber}"))
+    public ResponseEntity<Object>getFlightByFlightNumber(@PathVariable("flightNumber") String flightNumber) {
         FlightSaveResponse flight = flightService.getFlightByFlightNumber(flightNumber);
         BaseResponse<FlightSaveResponse> response =  BaseResponse.<FlightSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())

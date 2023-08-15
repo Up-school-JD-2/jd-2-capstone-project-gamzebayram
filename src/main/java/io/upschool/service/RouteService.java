@@ -8,10 +8,7 @@ import io.upschool.dto.route.RouteSaveResponse;
 import io.upschool.entity.Flight;
 import io.upschool.entity.Route;
 import io.upschool.entity.Airport;
-import io.upschool.exception.AirportNotFoundException;
-import io.upschool.exception.FlightNotFoundException;
-import io.upschool.exception.RouteAlreadySavedException;
-import io.upschool.exception.RouteNotFoundException;
+import io.upschool.exception.*;
 import io.upschool.repository.RouteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,6 +42,7 @@ public class RouteService {
 
     @Transactional
     public RouteSaveResponse createRoute(RouteSaveRequest routeDTO) {
+        checkDestination(routeDTO);
         checkIsRouteAlreadySaved(routeDTO);
 
         Route routeResponse = buildRouteAndSave(routeDTO);
@@ -101,7 +99,11 @@ public class RouteService {
             throw new RouteAlreadySavedException("Route already exists.");
         }
     }
-
+    private void checkDestination(RouteSaveRequest routeDTO) {
+        if (routeDTO.getDepartureAirportIataCode().equalsIgnoreCase(routeDTO.getArrivalAirportIataCode())) {
+            throw new InvalidRouteException("Invalid route.");
+        }
+    }
 
 
 }

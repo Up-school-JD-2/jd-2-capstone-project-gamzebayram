@@ -1,8 +1,6 @@
 package io.upschool.service;
 
-import io.upschool.dto.flight.FlightSaveResponse;
-import io.upschool.dto.route.RouteSaveRequest;
-import io.upschool.entity.Route;
+
 import io.upschool.enums.CabinClassType;
 import io.upschool.exception.*;
 import io.upschool.utils.CreditCardUtil;
@@ -70,10 +68,12 @@ public class TicketService {
     @Transactional
     public TicketSaveResponse delete(String ticketNumber) {
         Ticket ticket = ticketRepository.findByTicketNumber(ticketNumber);
+
         if (ticket == null) {
             throw new TicketNotFoundException("Ticket not found.");
         }
         ticket.setDelete(true);
+        ticket.getFlight().setSeatCapacity(ticket.getFlight().getSeatCapacity() + 1);
         ticketRepository.save(ticket);
         return TicketSaveResponse.builder()
                 .id(ticket.getId())

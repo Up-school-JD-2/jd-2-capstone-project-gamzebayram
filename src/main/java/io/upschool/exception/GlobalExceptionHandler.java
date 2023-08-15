@@ -141,6 +141,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
         return ResponseEntity.badRequest().body(response);
     }
+
+    @ExceptionHandler(InvalidRouteException.class)
+    public ResponseEntity<BaseResponse<RouteSaveResponse>> handleInvalidRouteException(final InvalidRouteException exception,
+                                                                                        final WebRequest webRequest){
+        System.out.println("Error acquired " + exception.getMessage());
+        System.out.println();
+        System.out.println(webRequest.toString());
+        BaseResponse<RouteSaveResponse> response = BaseResponse.<RouteSaveResponse>builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(exception.getMessage())
+                .isSuccess(false)
+                .build();
+        return ResponseEntity.badRequest().body(response);
+    }
+
+
     @ExceptionHandler(SeatNotAvailableException.class)
     public ResponseEntity<BaseResponse<TicketSaveResponse>> handleSeatNotAvailableException(final SeatNotAvailableException exception,
                                                                                             final WebRequest webRequest){

@@ -1,8 +1,6 @@
 package io.upschool.controller;
 
 import io.upschool.dto.BaseResponse;
-import io.upschool.dto.flight.FlightSaveRequest;
-import io.upschool.dto.flight.FlightSaveResponse;
 import io.upschool.dto.ticket.TicketSaveRequest;
 import io.upschool.dto.ticket.TicketSaveResponse;
 import io.upschool.service.TicketService;
@@ -56,7 +54,7 @@ public class TicketController {
 
     }
 
-    @GetMapping(("/flight/{flightNumber}"))
+    @GetMapping(("/get/{flightNumber}"))
     public ResponseEntity<Object>getAllTicketsByFlight(@PathVariable("flightNumber") String flightNumber) {
         List<TicketSaveResponse> tickets = ticketService.getAllTicketsByFlight(flightNumber);
         BaseResponse<List<TicketSaveResponse>> response =  BaseResponse.<List<TicketSaveResponse>>builder()
