@@ -3,11 +3,9 @@ package io.upschool.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 @Entity
@@ -26,16 +24,19 @@ public class Flight {
     @Column(name = "flight_number", nullable = false, unique = true)
     private String flightNumber;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = JsonFormat.Shape.STRING)
     @Column(name = "departure_date", nullable = false)
     private LocalDateTime departureDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", shape = JsonFormat.Shape.STRING)
     @Column(name = "arrival_date", nullable = false)
     private LocalDateTime arrivalDate;
 
     @Column(name = "seat_capacity", nullable = false)
     private int seatCapacity;
+
+    @Column(name = "base_Price", nullable = false)
+    private double basePrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "route_id", nullable = false)
@@ -45,9 +46,6 @@ public class Flight {
     @JoinColumn(name = "airline_id", nullable = false)
     private Airline airline;
 
-
-    @Column(name = "base_Price", nullable = false)
-    private double basePrice;
 
 
 }

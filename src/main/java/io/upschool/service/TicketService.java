@@ -35,7 +35,7 @@ public class TicketService {
                 .isDelete(ticketResponse.isDelete())
                 .passengerName(ticketResponse.getPassengerName())
                 .cardNumber(ticketResponse.getCardNumber())
-                .price(ticketResponse.getPrice())
+                .ticketPrice(ticketResponse.getTicketPrice())
                 .flightNumber(ticketResponse.getFlight().getFlightNumber())
                 .build();
     }
@@ -66,7 +66,7 @@ public class TicketService {
                 .ticketNumber(ticketNumber)
                 .passengerName(ticketDTO.getPassengerName())
                 .cardNumber(maskedCardNumber)
-                .price(ticketPrice)
+                .ticketPrice(ticketPrice)
                 .flight(flightByFlightNumber)
                 .build();
         return ticketRepository.save(newTicket);

@@ -1,6 +1,7 @@
 package io.upschool.dto.flight;
 
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class FlightSaveResponse {
     private String airlineIcaoCode;
     private String airlineName;
     private int seatCapacity;
+    private double basePrice;
 
 
 

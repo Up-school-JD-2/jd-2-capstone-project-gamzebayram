@@ -1,6 +1,6 @@
 package io.upschool.dto.ticket;
 
-import jakarta.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +13,12 @@ import lombok.NoArgsConstructor;
 public class TicketSaveResponse {
     private Long id;
     private String ticketNumber;
-    private boolean isDelete;
     private String passengerName;
+    private String ticketClassType;
     private String cardNumber;
-    private Double price;
+    private Double ticketPrice;
     private String flightNumber;
+    private boolean isDelete;
 
 
 
