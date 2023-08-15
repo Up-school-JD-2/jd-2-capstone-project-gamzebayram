@@ -30,7 +30,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @Override
-    public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex,
+    protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex,
                                                                 HttpHeaders headers,
                                                                 HttpStatusCode status,
                                                                 WebRequest request) {
@@ -45,6 +45,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(response);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
+                                                                  HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        Map<String, String> errors = new HashMap<>();
+        exception.getBindingResult().getAllErrors().forEach(error -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAll(final Exception exception, final WebRequest request) {
@@ -102,6 +113,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(response);
     }
 
+
+    @ExceptionHandler(AirportAlreadySavedException.class)
+    public ResponseEntity<BaseResponse<AirportSaveResponse>> handleAirportAlreadySavedException(final AirportAlreadySavedException exception,
+                                                                                            final WebRequest webRequest){
+        System.out.println("Error acquired " + exception.getMessage());
+        System.out.println();
+        System.out.println(webRequest.toString());
+        BaseResponse<AirportSaveResponse> response= BaseResponse.<AirportSaveResponse>builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(exception.getMessage())
+                .isSuccess(false)
+                .build();
+        return ResponseEntity.badRequest().body(response);
+    }
 
     @ExceptionHandler(RouteNotFoundException.class)
     public ResponseEntity<BaseResponse<RouteSaveResponse>> handleRouteNotFoundException(final RouteNotFoundException exception,
@@ -171,6 +196,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
         return ResponseEntity.badRequest().body(response);
     }
+
+    @ExceptionHandler(AirlineAlreadySavedException.class)
+    public ResponseEntity<BaseResponse<AirlineSaveResponse>> handleAirlineAlreadySavedException(final AirlineAlreadySavedException exception,
+                                                                                            final WebRequest webRequest){
+        System.out.println("Error acquired " + exception.getMessage());
+        System.out.println();
+        System.out.println(webRequest.toString());
+        BaseResponse<AirlineSaveResponse> response= BaseResponse.<AirlineSaveResponse>builder()
+                .status(HttpStatus.NOT_FOUND.value())
+                .error(exception.getMessage())
+                .isSuccess(false)
+                .build();
+        return ResponseEntity.badRequest().body(response);
+    }
+
 
 
 }

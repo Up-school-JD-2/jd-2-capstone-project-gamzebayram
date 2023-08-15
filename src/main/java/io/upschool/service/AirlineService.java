@@ -3,8 +3,12 @@ package io.upschool.service;
 
 import io.upschool.dto.airline.AirlineSaveRequest;
 import io.upschool.dto.airline.AirlineSaveResponse;
+import io.upschool.dto.airport.AirportSaveRequest;
 import io.upschool.entity.Airline;
+import io.upschool.entity.Airport;
+import io.upschool.exception.AirlineAlreadySavedException;
 import io.upschool.exception.AirlineNotFoundException;
+import io.upschool.exception.AirportAlreadySavedException;
 import io.upschool.repository.AirlineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +26,8 @@ public class AirlineService {
 
     @Transactional
     public AirlineSaveResponse createAirline(AirlineSaveRequest airlineDTO) {
+
+        checkIsAirlineAlreadySaved(airlineDTO);
 
         Airline airline = Airline.builder()
                 .icaoCode(airlineDTO.getIcaoCode())
@@ -72,7 +78,12 @@ public class AirlineService {
 
     }
 
-
+    private void checkIsAirlineAlreadySaved(AirlineSaveRequest airlineDTO) {
+        Airline airline = airlineRepository.findByIcaoCodeIs(airlineDTO.getIcaoCode());
+        if (airline != null ) {
+            throw new AirlineAlreadySavedException("Airline already exists.");
+        }
+    }
 
 
 }

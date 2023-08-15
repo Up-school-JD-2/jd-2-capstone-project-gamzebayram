@@ -2,8 +2,12 @@ package io.upschool.service;
 
 import io.upschool.dto.airport.AirportSaveRequest;
 import io.upschool.dto.airport.AirportSaveResponse;
+import io.upschool.dto.route.RouteSaveRequest;
 import io.upschool.entity.Airport;
+import io.upschool.entity.Route;
+import io.upschool.exception.AirportAlreadySavedException;
 import io.upschool.exception.AirportNotFoundException;
+import io.upschool.exception.RouteAlreadySavedException;
 import io.upschool.repository.AirportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,9 @@ public class AirportService {
 
     @Transactional
     public AirportSaveResponse createAirport(AirportSaveRequest airportDTO) {
+
+        checkIsAirportAlreadySaved(airportDTO);
+
         Airport airport = Airport.builder()
                 .iataCode(airportDTO.getIataCode())
                 .airportName(airportDTO.getAirportName())
@@ -74,6 +81,15 @@ public class AirportService {
         }
         return airport;
     }
+
+    private void checkIsAirportAlreadySaved(AirportSaveRequest airportDTO) {
+        Airport airport = airportRepository.findByIataCodeIs(airportDTO.getIataCode());
+        if (airport != null ) {
+            throw new AirportAlreadySavedException("Airport already exists.");
+        }
+    }
+
+
 
 
 }
