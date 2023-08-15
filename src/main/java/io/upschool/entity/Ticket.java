@@ -2,6 +2,9 @@ package io.upschool.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import java.io.Serializable;
 
 @Entity
@@ -10,6 +13,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@SQLDelete(sql = "UPDATE ticket SET is is_deleted = true WHERE id=?")
+@Where(clause = "is_deleted=false")
+
 public class Ticket {
 
     @Id

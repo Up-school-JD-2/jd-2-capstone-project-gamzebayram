@@ -112,6 +112,7 @@ public class TicketService {
         if (flightByFlightNumber == null) {
             throw new FlightNotFoundException("Flight not found.");
         }
+
         if (flightByFlightNumber.getSeatCapacity() > 0) {
             flightByFlightNumber.setSeatCapacity(flightByFlightNumber.getSeatCapacity() - 1);
             flightService.save(flightByFlightNumber);
@@ -165,7 +166,7 @@ public class TicketService {
 
 
     private void checkIsPassengerAlreadyBuy(TicketSaveRequest ticketDTO) {
-        Long findId = ticketRepository.findFlightIdByFlightNumber(ticketDTO.getFlightNumber());
+        Long findId = flightService.findFlightIdByFlightNumber(ticketDTO.getFlightNumber());
         if (findId == null) {
             throw new FlightNotFoundException("Flight not found.");
         }

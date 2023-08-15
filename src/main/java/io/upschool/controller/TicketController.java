@@ -33,8 +33,8 @@ public class TicketController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(("{ticket_number}"))
-    public ResponseEntity<Object>getTicketByTicketNumber(@PathVariable("ticket_number") String ticketNumber) {
+    @GetMapping(("/{ticketNumber}"))
+    public ResponseEntity<Object>getTicketByTicketNumber(@PathVariable("ticketNumber") String ticketNumber) {
         TicketSaveResponse ticket = ticketService.getTicketByTicketNumber(ticketNumber);
         BaseResponse<TicketSaveResponse> response =  BaseResponse.<TicketSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())
@@ -44,7 +44,7 @@ public class TicketController {
         return ResponseEntity.ok(response);
     }
 
-@DeleteMapping(("{ticketNumber}"))
+@DeleteMapping(("/delete/{ticketNumber}"))
     public ResponseEntity<Object> deleteTicket (@PathVariable("ticketNumber") String ticketNumber) {
     TicketSaveResponse ticket = ticketService.delete(ticketNumber);
     BaseResponse<TicketSaveResponse> response =  BaseResponse.<TicketSaveResponse>builder()
@@ -56,7 +56,7 @@ public class TicketController {
 
     }
 
-    @GetMapping(("{flightNumber}"))
+    @GetMapping(("/flight/{flightNumber}"))
     public ResponseEntity<Object>getAllTicketsByFlight(@PathVariable("flightNumber") String flightNumber) {
         List<TicketSaveResponse> tickets = ticketService.getAllTicketsByFlight(flightNumber);
         BaseResponse<List<TicketSaveResponse>> response =  BaseResponse.<List<TicketSaveResponse>>builder()

@@ -109,7 +109,14 @@ public class FlightService {
         }
         return flight;
     }
-
+    @Transactional(readOnly = true)
+    public Long  findFlightIdByFlightNumber(String flightNumber){
+        Long id = flightRepository.findFlightIdByFlightNumber(flightNumber);
+        if (id == null) {
+            throw new FlightNotFoundException("Flight not found.");
+        }
+        return id;
+    }
 
     private Flight buildFlightAndSave(FlightSaveRequest flightDTO) {
         Route routeByReference = routeService.getReferenceById(flightDTO.getRouteId());
@@ -145,6 +152,9 @@ public class FlightService {
 
         return flightNumber;
     }
+
+
+
 }
 
 

@@ -15,5 +15,9 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
 
      Flight findByFlightNumber(String flightNumber);
 
+     @Query(value = "select t.id from Flight t where t.flightNumber= :flightNumber")
+     Long findFlightIdByFlightNumber(String flightNumber);
+
+
 
 }

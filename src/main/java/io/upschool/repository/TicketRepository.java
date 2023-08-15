@@ -16,8 +16,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     Ticket findByTicketNumber(String ticketNumber);
 
-    @Query(value = "select t.flight.id from Ticket t where t.flight.flightNumber = :flightNumber")
-    Long findFlightIdByFlightNumber(@Param("flightNumber") String flightNumber);
+   // @Query(value = "select t.flight.id from Ticket t where t.flight.flightNumber = :flightNumber")
+    //Long findFlightIdByFlightNumber(@Param("flightNumber") String flightNumber);
 
     Ticket findTicketByFlight_IdAndPassengerName(Long flightId, String passengerName);
 
