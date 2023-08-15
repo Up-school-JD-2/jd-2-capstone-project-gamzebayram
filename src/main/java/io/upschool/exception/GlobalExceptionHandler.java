@@ -64,7 +64,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         var response = BaseResponse.
                 <Object>builder()
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .status(HttpStatus.BAD_REQUEST.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
                 .build();
@@ -107,7 +107,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         System.out.println();
         System.out.println(webRequest.toString());
         BaseResponse<RouteSaveResponse> response = BaseResponse.<RouteSaveResponse>builder()
-                .status(HttpStatus.CONFLICT.value())
+                .status(HttpStatus.BAD_REQUEST.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
                 .build();
@@ -165,7 +165,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         System.out.println();
         System.out.println(webRequest.toString());
         BaseResponse<TicketSaveResponse> response = BaseResponse.<TicketSaveResponse>builder()
-                .status(HttpStatus.CONFLICT.value())
+                .status(HttpStatus.BAD_REQUEST.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
                 .build();
@@ -179,7 +179,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         System.out.println();
         System.out.println(webRequest.toString());
         BaseResponse<TicketSaveResponse> response = BaseResponse.<TicketSaveResponse>builder()
-                .status(HttpStatus.CONFLICT.value())
+                .status(HttpStatus.BAD_REQUEST.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
                 .build();
@@ -207,7 +207,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         System.out.println();
         System.out.println(webRequest.toString());
         BaseResponse<TicketSaveResponse> response = BaseResponse.<TicketSaveResponse>builder()
-                .status(HttpStatus.CONFLICT.value())
+                .status(HttpStatus.BAD_REQUEST.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
                 .build();
