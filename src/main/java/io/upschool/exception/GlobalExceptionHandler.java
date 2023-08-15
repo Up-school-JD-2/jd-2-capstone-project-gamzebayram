@@ -64,11 +64,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(AirportNotFoundException.class)
     public ResponseEntity<BaseResponse<AirportSaveResponse>> handleAirportNotFoundException(final AirportNotFoundException exception,
                                                                                                final WebRequest webRequest){
-        System.out.println("Error acquired "+exception.getMessage());
-        System.out.println();
+        System.out.println("Error acquired " + exception.getMessage());
         System.out.println();
         System.out.println(webRequest.toString());
-        var response= BaseResponse.<AirportSaveResponse>builder()
+        BaseResponse<AirportSaveResponse> response= BaseResponse.<AirportSaveResponse>builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
@@ -79,11 +78,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(FlightNotFoundException.class)
     public ResponseEntity<BaseResponse<FlightSaveResponse>> handleFlightNotFoundException(final FlightNotFoundException exception,
                                                                                             final WebRequest webRequest){
-        System.out.println("Error acquired "+exception.getMessage());
-        System.out.println();
+        System.out.println("Error acquired " + exception.getMessage());
         System.out.println();
         System.out.println(webRequest.toString());
-        var response= BaseResponse.<FlightSaveResponse>builder()
+        BaseResponse<FlightSaveResponse> response= BaseResponse.<FlightSaveResponse>builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
@@ -93,11 +91,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RouteAlreadySavedException.class)
     public ResponseEntity<BaseResponse<RouteSaveResponse>> handleRouteAlreadySavedException(final RouteAlreadySavedException exception,
                                                                                             final WebRequest webRequest){
-        System.out.println("Error acquired "+exception.getMessage());
-        System.out.println();
+        System.out.println("Error acquired " + exception.getMessage());
         System.out.println();
         System.out.println(webRequest.toString());
-        var response= BaseResponse.<RouteSaveResponse>builder()
+        BaseResponse<RouteSaveResponse> response= BaseResponse.<RouteSaveResponse>builder()
                 .status(HttpStatus.CONFLICT.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
@@ -109,11 +106,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RouteNotFoundException.class)
     public ResponseEntity<BaseResponse<RouteSaveResponse>> handleRouteNotFoundException(final RouteNotFoundException exception,
                                                                                               final WebRequest webRequest){
-        System.out.println("Error acquired "+exception.getMessage());
-        System.out.println();
+        System.out.println("Error acquired " + exception.getMessage());
         System.out.println();
         System.out.println(webRequest.toString());
-        var response= BaseResponse.<RouteSaveResponse>builder()
+        BaseResponse<RouteSaveResponse> response = BaseResponse.<RouteSaveResponse>builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
@@ -123,11 +119,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(SeatNotAvailableException.class)
     public ResponseEntity<BaseResponse<TicketSaveResponse>> handleSeatNotAvailableException(final SeatNotAvailableException exception,
                                                                                             final WebRequest webRequest){
-        System.out.println("Error acquired "+exception.getMessage());
-        System.out.println();
+        System.out.println("Error acquired " + exception.getMessage());
         System.out.println();
         System.out.println(webRequest.toString());
-        var response= BaseResponse.<TicketSaveResponse>builder()
+        BaseResponse<TicketSaveResponse> response= BaseResponse.<TicketSaveResponse>builder()
                 .status(HttpStatus.CONFLICT.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
@@ -138,11 +133,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(TicketNotFoundException.class)
     public ResponseEntity<BaseResponse<TicketSaveResponse>> handleTicketNotFoundException(final TicketNotFoundException exception,
                                                                                             final WebRequest webRequest){
-        System.out.println("Error acquired "+exception.getMessage());
-        System.out.println();
+        System.out.println("Error acquired " + exception.getMessage());
         System.out.println();
         System.out.println(webRequest.toString());
-        var response= BaseResponse.<TicketSaveResponse>builder()
+        BaseResponse<TicketSaveResponse> response= BaseResponse.<TicketSaveResponse>builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
@@ -153,11 +147,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(TicketAlreadySavedException.class)
     public ResponseEntity<BaseResponse<TicketSaveResponse>> handleTicketAlreadySavedException(final TicketAlreadySavedException exception,
                                                                                           final WebRequest webRequest){
-        System.out.println("Error acquired "+exception.getMessage());
-        System.out.println();
+        System.out.println("Error acquired " + exception.getMessage());
         System.out.println();
         System.out.println(webRequest.toString());
-        var response= BaseResponse.<TicketSaveResponse>builder()
+        BaseResponse<TicketSaveResponse> response = BaseResponse.<TicketSaveResponse>builder()
                 .status(HttpStatus.CONFLICT.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
@@ -168,11 +161,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(AirlineNotFoundException.class)
     public ResponseEntity<BaseResponse<AirlineSaveResponse>> handleAirlineNotFoundException(final AirlineNotFoundException exception,
                                                                                             final WebRequest webRequest){
-        System.out.println("Error acquired "+exception.getMessage());
-        System.out.println();
+        System.out.println("Error acquired " + exception.getMessage());
         System.out.println();
         System.out.println(webRequest.toString());
-        var response= BaseResponse.<AirlineSaveResponse>builder()
+        BaseResponse<AirlineSaveResponse> response= BaseResponse.<AirlineSaveResponse>builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .error(exception.getMessage())
                 .isSuccess(false)
