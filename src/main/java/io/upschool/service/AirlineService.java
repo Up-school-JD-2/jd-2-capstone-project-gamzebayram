@@ -54,7 +54,7 @@ public class AirlineService {
 
         Airline airline = airlineRepository.findByIcaoCodeIs(icaoCode);
         if (airline == null) {
-            throw new AirlineNotFoundException("Airline not found for ICAO code: ", icaoCode);
+            throw new AirlineNotFoundException("Airline not found.");
         }
 
         return AirlineSaveResponse.builder()

@@ -87,7 +87,6 @@ public class RouteService {
             throw new AirportNotFoundException("Airport not found.");
         }
 
-
         Route newRoute = Route.builder()
                 .departureAirport(departureAirport)
                 .arrivalAirport(arrivalAirport)
@@ -102,13 +101,6 @@ public class RouteService {
             throw new RouteAlreadySavedException("Route already exists.");
         }
     }
-
-
-
-
-
-
-
 
 
 

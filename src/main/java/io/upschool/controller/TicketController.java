@@ -46,7 +46,7 @@ public class TicketController {
     public ResponseEntity<Object> deleteTicket (@PathVariable("ticketNumber") String ticketNumber) {
     var ticket = ticketService.delete(ticketNumber);
     var response =  BaseResponse.<TicketSaveResponse>builder()
-            .status(HttpStatus.OK.value())
+            .status(HttpStatus.NO_CONTENT.value())
             .isSuccess(true)
             .data(ticket)
             .build();

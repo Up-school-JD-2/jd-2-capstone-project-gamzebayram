@@ -6,7 +6,10 @@ import io.upschool.dto.flight.FlightSaveResponse;
 import io.upschool.entity.Airline;
 import io.upschool.entity.Flight;
 import io.upschool.entity.Route;
+import io.upschool.exception.AirlineNotFoundException;
+import io.upschool.exception.AirportNotFoundException;
 import io.upschool.exception.FlightNotFoundException;
+import io.upschool.exception.RouteNotFoundException;
 import io.upschool.repository.FlightRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -112,6 +115,12 @@ public class FlightService {
     private Flight buildFlightAndSave(FlightSaveRequest flightDTO) {
         Route routeByReference = routeService.getReferenceById(flightDTO.getRouteId());
         Airline airlineByReference = airlineService.getReferenceById(flightDTO.getAirlineId());
+        if (routeByReference == null) {
+            throw new RouteNotFoundException("Route not found.");
+        }
+        if (airlineByReference  == null) {
+            throw new AirlineNotFoundException("Airline not found.");
+        }
         String flightNumber = generateUniqueFlightNumber();
 
         Flight newFlight = Flight.builder()

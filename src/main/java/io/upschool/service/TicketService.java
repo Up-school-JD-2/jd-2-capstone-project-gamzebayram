@@ -1,10 +1,10 @@
 package io.upschool.service;
 
 import io.upschool.dto.flight.FlightSaveResponse;
+import io.upschool.dto.route.RouteSaveRequest;
+import io.upschool.entity.Route;
 import io.upschool.enums.CabinClassType;
-import io.upschool.exception.FlightNotFoundException;
-import io.upschool.exception.SeatNotAvailableException;
-import io.upschool.exception.TicketNotFoundException;
+import io.upschool.exception.*;
 import io.upschool.utils.CreditCardUtil;
 import io.upschool.dto.ticket.TicketSaveRequest;
 import io.upschool.dto.ticket.TicketSaveResponse;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Random;
-
 
 
 @Service
@@ -31,7 +30,9 @@ public class TicketService {
     @Transactional
     public TicketSaveResponse createTicket(TicketSaveRequest ticketDTO) {
 
-        Ticket ticketResponse = buildTicketAndSave(ticketDTO);
+        checkIsPassengerAlreadyBuy(ticketDTO);
+
+        Ticket ticketResponse = buildTicketAndSaveAndUpdateSeatCount(ticketDTO);
         return TicketSaveResponse.builder()
                 .id(ticketResponse.getId())
                 .ticketNumber(ticketResponse.getTicketNumber())
@@ -83,9 +84,11 @@ public class TicketService {
     }
 
 
-    private Ticket buildTicketAndSave(TicketSaveRequest ticketDTO) {
+    private Ticket buildTicketAndSaveAndUpdateSeatCount(TicketSaveRequest ticketDTO) {
         Flight flightByFlightNumber = flightService.findFlightByFlightNumber(ticketDTO.getFlightNumber());
-
+        if (flightByFlightNumber == null) {
+            throw new FlightNotFoundException("Flight not found.");
+        }
         if (flightByFlightNumber.getSeatCapacity() > 0) {
             flightByFlightNumber.setSeatCapacity(flightByFlightNumber.getSeatCapacity() - 1);
             flightService.save(flightByFlightNumber);
@@ -93,8 +96,9 @@ public class TicketService {
             throw new SeatNotAvailableException("No available seats for this flight.");
         }
 
-        String ticketNumber = generateUniqueTicketNumber();
+
         String maskedCardNumber = CreditCardUtil.maskCardNumber(ticketDTO.getCardNumber());
+        String ticketNumber = generateUniqueTicketNumber();
         double ticketPrice = calculateTicketPrice(flightByFlightNumber, ticketDTO.getTicketClassType());
 
         Ticket newTicket = Ticket.builder()
@@ -130,48 +134,26 @@ public class TicketService {
         if (ticketClassType.equalsIgnoreCase(CabinClassType.BUSINESS.name())) {
             priceMultiplier *= 2.0;
         }
-        double finalPrice = basePrice * priceMultiplier;
-        return finalPrice;
-
+        return basePrice * priceMultiplier;
 
     }
-}
 
-/*
-    @Transactional
-    public void buyTicketAndUpdateSeatCount(Long flightId) {
-        Flight flight = flightRepository.findById(flightId).orElseThrow(() -> new FlightNotFoundException("Flight not found"));
 
-        if (flight.getSeatCount() > 0) {
-            // Önce koltuk sayısını azalt
-            flight.setSeatCount(flight.getSeatCount() - 1);
-            flightRepository.save(flight);
-
-            // Bilet bilgilerini kaydet (burada bilet kaydetme işlemi yapılabilir)
-
-            public AuthorSaveResponse update(AuthorUpdateRequest request) {
-                var optionalAuthor = authorRepository.findById(request.getId());
-                if (optionalAuthor.isPresent()) {
-                    var author = optionalAuthor.get();
-                    author.setName(request.getName());
-                    author.setSurname(request.getSurname());
-                    author = authorRepository.save(author);
-                    return AuthorSaveResponse.builder()
-                            .nameSurname(author.getName() + " " + author.getSurname())
-                            .id(author.getId())
-                            .build();
-                }
-                throw new RuntimeException("Author not found");
-            }
-            flightRepository.save(flight);
-        } else {
-            throw new SeatNotAvailableException("No available seats for this flight");
+    private void checkIsPassengerAlreadyBuy(TicketSaveRequest ticketDTO) {
+        Long findId = ticketRepository.findFlightIdByFlightNumber(ticketDTO.getFlightNumber());
+        if (findId == null) {
+            throw new FlightNotFoundException("Flight not found.");
+        }
+        Ticket alreadyBuyTicket = ticketRepository.findTicketByFlight_IdAndPassengerName(findId, ticketDTO.getPassengerName());
+        if (alreadyBuyTicket != null ) {
+            throw new TicketAlreadySavedException("Passenger already buy ticket for this flight.");
         }
     }
+
+
 }
-//CHECK-İN VE FİYAT ALGORİTMASI uçuş flight update valid PARAM TÜM DEĞER GİRMEME  ticketta aynı ıd ile aynı insan bilet alamasın null değer dönmesi eager
 
 
 
 
- */
+
