@@ -1,0 +1,1620 @@
+{
+	"info": {
+		"_postman_id": "0773ebf5-1b64-44dc-a589-5e505a361d14",
+		"name": "capstoneProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26142362"
+	},
+	"item": [
+		{
+			"name": "Airport",
+			"item": [
+				{
+					"name": "get all airports",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/airports",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"airports"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get all airports",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airports",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airports"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "save airport",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n\"iataCode\": \"SAW\",\r\n\"airportName\" : \"Sabiha Gökçen Havaalanı\",\r\n\"airportLocation\" : \"İstanbul\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/airports",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"airports"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "save airport",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n\"iataCode\": \"SAW\",\r\n\"airportName\" : \"Sabiha Gökçen Havaalanı\",\r\n\"airportLocation\" : \"İstanbul\"\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airports",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airports"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save airport2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n\"iataCode\": \"ADB\",\r\n\"airportName\" : \"Adnan Menderes Havalimanı\",\r\n\"airportLocation\" : \"İzmir\"\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airports",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airports"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save airport3",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n\"iataCode\": \"IST\",\r\n\"airportName\" : \"İstanbul Havaalanı\",\r\n\"airportLocation\" : \"İstanbul\"\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airports",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airports"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save airport4",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n\"iataCode\": \"S\",\r\n\"airportName\" : \"Sabiha Gökçen Havaalanı\",\r\n\"airportLocation\" : \"İstanbul\"\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airports",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airports"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get airport byIataCode",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/airports/SAW",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"airports",
+								"SAW"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get airport byIataCode",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airports/SAW",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airports",
+										"SAW"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Airline",
+			"item": [
+				{
+					"name": "save airline",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n\"icaoCode\": \"THY\",\r\n\"airlineName\" : \"Türk Hava Yolları\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/airlines",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"airlines"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "save airline",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n\"icaoCode\": \"THY\",\r\n\"airlineName\" : \"Türk Hava Yolları\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airlines",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airlines"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save airline2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n\"icaoCode\": \"PGT\",\r\n\"airlineName\" : \"Pegasus Airlines\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airlines",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airlines"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save airline3",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n\"icaoCode\": \"THY\",\r\n\"airlineName\" : \"Türk Hava Yolları\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airlines",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airlines"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get airline byIcaoCode",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/airlines/PGT",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"airlines",
+								"PGT"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get airline byIcaoCode",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airlines/PGT",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airlines",
+										"PGT"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "get airline byIcaoCode",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airlines/OHY",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airlines",
+										"OHY"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get all airlines",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/airlines",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"airlines"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get all airlines",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/airlines",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"airlines"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Route",
+			"item": [
+				{
+					"name": "save route",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"departureAirportIataCode\": \"IST\",\r\n\"arrivalAirportIataCode\" : \"SAW\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/routes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"routes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "save route",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"departureAirportIataCode\": \"IST\",\r\n\"arrivalAirportIataCode\" : \"SAW\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/routes",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"routes"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save route2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"departureAirportIataCode\": \"IST\",\r\n\"arrivalAirportIataCode\" : \"IST\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/routes",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"routes"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save route3",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"departureAirportIataCode\": \"ADB\",\r\n\"arrivalAirportIataCode\" : \"SAW\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/routes",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"routes"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save route4",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"departureAirportIataCode\": \"IST\",\r\n\"arrivalAirportIataCode\" : \"SAW\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/routes",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"routes"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get all routes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/routes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"routes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get all routes",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/routes",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"routes"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get routes byId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/routes/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"routes",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get routes byId",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/routes/1",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "get routes byId",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/routes/80",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"routes",
+										"80"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Flight",
+			"item": [
+				{
+					"name": "save flight",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"departureDate\": \"2023-08-15 18:00\",\r\n\"arrivalDate\" : \"2023-08-16 00:00\",\r\n\"seatCapacity\": \"30\",\r\n\"routeId\" : \"1\",\r\n\"airlineId\": \"1\",\r\n\"basePrice\": 1000\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/flights",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"flights"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "save flight",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"departureDate\": \"2023-08-16 18:00\",\r\n\"arrivalDate\" : \"2023-08-18 00:00\",\r\n\"seatCapacity\": \"30\",\r\n\"routeId\" : \"1\",\r\n\"airlineId\": \"1\",\r\n\"basePrice\": \"1000\"\r\n\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/flights",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"flights"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save flight2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"departureDate\": \"2023-02-23 18:00\",\r\n\"arrivalDate\" : \"2023-02-25 00:00\",\r\n\"seatCapacity\": \"50\",\r\n\"routeId\" : \"1\",\r\n\"airlineId\": \"2\",\r\n\"basePrice\": \"4000\"\r\n\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/flights",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"flights"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save flight3",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"departureDate\": \"2023-08-20 18:00\",\r\n\"arrivalDate\" : \"2023-08-26 00:00\",\r\n\"seatCapacity\": \"30\",\r\n\"routeId\" : \"2\",\r\n\"airlineId\": \"2\",\r\n\"basePrice\": \"3000\"\r\n\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/flights",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"flights"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get all flights",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/flights",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"flights"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get all flights",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/flights",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"flights"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get flight ByFlightNumber",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/flights/FL-569",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"flights",
+								"FL-569"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get flight ByFlightNumber",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/flights/FL-2205",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"flights",
+										"FL-2205"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "get flight ByFlightNumber2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/flights/FL-2205",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"flights",
+										"FL-2205"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Ticket",
+			"item": [
+				{
+					"name": "save ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"passengerName\": \"Gamze BAYRAM\",\r\n\"cardNumber\" : \"4221,1611,2233,0004\",\r\n\"ticketClassType\": \"BUSINESS\",\r\n\"flightNumber\" : \"FL-522\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/tickets",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tickets"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "save ticket",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"passengerName\": \"Gamze BAYRAM\",\r\n\"cardNumber\" : \"4221,1611,2233,0004\",\r\n\"ticketClassType\": \"BUSINESS\",\r\n\"flightNumber\" : \"FL-317\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/tickets",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"tickets"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save ticket2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"passengerName\": \"Gamze BAYRAM\",\r\n\"cardNumber\" : \"4221,1611,2233,0004\",\r\n\"ticketClassType\": \"BUSINESS\",\r\n\"flightNumber\" : \"FL-317\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/tickets",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"tickets"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save ticket",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"passengerName\": \"Asım Kılıç\",\r\n\"cardNumber\" : \"4221-1611-2233-0005\",\r\n\"ticketClassType\": \"FIRST\",\r\n\"flightNumber\" : \"FL-569\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/tickets",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"tickets"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save ticket",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"passengerName\": \"Ahmet Gültekin\",\r\n\"cardNumber\" : \"4221,1611,2233,0004\",\r\n\"ticketClassType\": \"economy_class\",\r\n\"flightNumber\" : \"FL-522\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/tickets",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"tickets"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save ticket5",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"passengerName\": \"Akın Kaldıroğlu\",\r\n\"cardNumber\" : \"4221-1611-2233-00050\",\r\n\"ticketClassType\": \"BUSINESS\",\r\n\"flightNumber\" : \"FL-522\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/tickets",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"tickets"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save ticket",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"passengerName\": \"Upschool\",\r\n\"cardNumber\" : \"4221-1611-2233-0005\",\r\n\"ticketClassType\": \"ECONOMY\",\r\n\"flightNumber\" : \"FL-569\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/tickets",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"tickets"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "delete ticket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/tickets/delete/PNR-672",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tickets",
+								"delete",
+								"PNR-672"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete ticket",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/tickets/delete/PNR-79",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"tickets",
+										"delete",
+										"PNR-79"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "delete ticket",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/tickets/delete/PNR-79",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"tickets",
+										"delete",
+										"PNR-79"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get ticket by ticketNumber",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/tickets/PNR-672",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tickets",
+								"PNR-672"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get ticket by ticketNumber",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/tickets/PNR-79",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"tickets",
+										"PNR-79"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "get ticket by ticketNumber2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/tickets/PNR-672",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"tickets",
+										"PNR-672"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "get tickets by flight",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/tickets/get/FL-522",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tickets",
+								"get",
+								"FL-522"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get tickets by flight",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/tickets/get/FL-569",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"tickets",
+										"get",
+										"FL-569"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		}
+	]
+}
