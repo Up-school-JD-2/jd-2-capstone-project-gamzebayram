@@ -68,7 +68,9 @@ public class TicketService {
     @Transactional
     public TicketSaveResponse delete(String ticketNumber) {
         Ticket ticket = ticketRepository.findByTicketNumber(ticketNumber);
-
+        if (ticket.isDelete()) {
+            throw new TicketAlreadyDeletedException("Ticket already deleted.");
+        }
         if (ticket == null) {
             throw new TicketNotFoundException("Ticket not found.");
         }
@@ -109,9 +111,6 @@ public class TicketService {
 
     private Ticket buildTicketAndSaveAndUpdateSeatCount(TicketSaveRequest ticketDTO) {
         Flight flightByFlightNumber = flightService.findFlightByFlightNumber(ticketDTO.getFlightNumber());
-        if (flightByFlightNumber == null) {
-            throw new FlightNotFoundException("Flight not found.");
-        }
 
         if (flightByFlightNumber.getSeatCapacity() > 0) {
             flightByFlightNumber.setSeatCapacity(flightByFlightNumber.getSeatCapacity() - 1);
@@ -167,9 +166,6 @@ public class TicketService {
 
     private void checkIsPassengerAlreadyBuy(TicketSaveRequest ticketDTO) {
         Long findId = flightService.findFlightIdByFlightNumber(ticketDTO.getFlightNumber());
-        if (findId == null) {
-            throw new FlightNotFoundException("Flight not found.");
-        }
         Ticket alreadyBuyTicket = ticketRepository.findTicketByFlight_IdAndPassengerName(findId, ticketDTO.getPassengerName());
         if (alreadyBuyTicket != null) {
             throw new TicketAlreadySavedException("Passenger already buy ticket for this flight.");
