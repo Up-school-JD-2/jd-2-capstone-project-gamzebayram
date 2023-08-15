@@ -54,7 +54,7 @@ public class AirportService {
 
         Airport airport = airportRepository.findByIataCodeIs(iataCode);
         if (airport == null) {
-            throw new AirportNotFoundException("Airport not found for IATA code: ", iataCode);
+            throw new AirportNotFoundException("Airport not found.");
         }
 
         return AirportSaveResponse.builder()
@@ -70,7 +70,7 @@ public class AirportService {
     public Airport findAirportByIataCode(String iataCode) {
         Airport airport = airportRepository.findByIataCodeIs(iataCode);
         if (airport == null) {
-            throw new AirportNotFoundException("Airport not found for IATA code: ", iataCode);
+            throw new AirportNotFoundException("Airport not found.");
         }
         return airport;
     }

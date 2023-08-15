@@ -8,6 +8,7 @@ import io.upschool.dto.route.RouteSaveResponse;
 import io.upschool.entity.Flight;
 import io.upschool.entity.Route;
 import io.upschool.entity.Airport;
+import io.upschool.exception.AirportNotFoundException;
 import io.upschool.exception.FlightNotFoundException;
 import io.upschool.exception.RouteAlreadySavedException;
 import io.upschool.exception.RouteNotFoundException;
@@ -81,6 +82,11 @@ public class RouteService {
     private Route buildRouteAndSave(RouteSaveRequest routeDTO) {
         Airport departureAirport = airportService.findAirportByIataCode(routeDTO.getDepartureAirportIataCode());
         Airport arrivalAirport = airportService.findAirportByIataCode(routeDTO.getArrivalAirportIataCode());
+
+        if (departureAirport == null || arrivalAirport == null) {
+            throw new AirportNotFoundException("Airport not found.");
+        }
+
 
         Route newRoute = Route.builder()
                 .departureAirport(departureAirport)
