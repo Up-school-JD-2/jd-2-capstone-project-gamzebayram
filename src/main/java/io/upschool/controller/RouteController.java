@@ -22,8 +22,8 @@ public class RouteController {
 
     @PostMapping
     public ResponseEntity<Object> createRoute(@Valid @RequestBody RouteSaveRequest request) {
-        var routeSaveResponse = routeService.createRoute(request);
-        var response =  BaseResponse.<RouteSaveResponse>builder()
+        RouteSaveResponse routeSaveResponse = routeService.createRoute(request);
+        BaseResponse<RouteSaveResponse> response =  BaseResponse.<RouteSaveResponse>builder()
                 .status(HttpStatus.CREATED.value())
                 .isSuccess(true)
                 .data(routeSaveResponse)
@@ -33,8 +33,8 @@ public class RouteController {
 
     @GetMapping
     public ResponseEntity<Object>getAllRoutes() {
-        var routes = routeService.getAllRoutes();
-        var response =  BaseResponse.<List<RouteSaveResponse>>builder()
+        List<RouteSaveResponse> routes = routeService.getAllRoutes();
+        BaseResponse<List<RouteSaveResponse>> response =  BaseResponse.<List<RouteSaveResponse>>builder()
                 .status(HttpStatus.OK.value())
                 .isSuccess(true)
                 .data(routes)
@@ -45,8 +45,8 @@ public class RouteController {
 
     @GetMapping("{id}")
     public ResponseEntity<Object>getRouteById(@PathVariable("id") Long id) {
-        var route = routeService.getRouteById(id);
-        var response =  BaseResponse.<RouteSaveResponse>builder()
+        RouteSaveResponse route = routeService.getRouteById(id);
+        BaseResponse<RouteSaveResponse> response =  BaseResponse.<RouteSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())
                 .isSuccess(true)
                 .data(route)

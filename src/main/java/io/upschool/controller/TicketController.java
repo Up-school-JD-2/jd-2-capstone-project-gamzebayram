@@ -24,8 +24,8 @@ public class TicketController {
 
     @PostMapping
     public ResponseEntity<Object> createTicket(@Valid @RequestBody TicketSaveRequest request) {
-        var ticketSaveResponse = ticketService.createTicket(request);
-        var response =  BaseResponse.<TicketSaveResponse>builder()
+        TicketSaveResponse ticketSaveResponse = ticketService.createTicket(request);
+        BaseResponse<TicketSaveResponse> response =  BaseResponse.<TicketSaveResponse>builder()
                 .status(HttpStatus.CREATED.value())
                 .isSuccess(true)
                 .data(ticketSaveResponse)
@@ -35,8 +35,8 @@ public class TicketController {
 
     @GetMapping(("{ticket_number}"))
     public ResponseEntity<Object>getTicketByTicketNumber(@PathVariable("ticket_number") String ticketNumber) {
-        var ticket = ticketService.getTicketByTicketNumber(ticketNumber);
-        var response =  BaseResponse.<TicketSaveResponse>builder()
+        TicketSaveResponse ticket = ticketService.getTicketByTicketNumber(ticketNumber);
+        BaseResponse<TicketSaveResponse> response =  BaseResponse.<TicketSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())
                 .isSuccess(true)
                 .data(ticket)
@@ -46,8 +46,8 @@ public class TicketController {
 
 @DeleteMapping(("{ticketNumber}"))
     public ResponseEntity<Object> deleteTicket (@PathVariable("ticketNumber") String ticketNumber) {
-    var ticket = ticketService.delete(ticketNumber);
-    var response =  BaseResponse.<TicketSaveResponse>builder()
+    TicketSaveResponse ticket = ticketService.delete(ticketNumber);
+    BaseResponse<TicketSaveResponse> response =  BaseResponse.<TicketSaveResponse>builder()
             .status(HttpStatus.NO_CONTENT.value())
             .isSuccess(true)
             .data(ticket)
@@ -58,8 +58,8 @@ public class TicketController {
 
     @GetMapping(("{flightNumber}"))
     public ResponseEntity<Object>getAllTicketsByFlight(@PathVariable("flightNumber") String flightNumber) {
-        var tickets = ticketService.getAllTicketsByFlight(flightNumber);
-        var response =  BaseResponse.<List<TicketSaveResponse>>builder()
+        List<TicketSaveResponse> tickets = ticketService.getAllTicketsByFlight(flightNumber);
+        BaseResponse<List<TicketSaveResponse>> response =  BaseResponse.<List<TicketSaveResponse>>builder()
                 .status(HttpStatus.OK.value())
                 .isSuccess(true)
                 .data(tickets)

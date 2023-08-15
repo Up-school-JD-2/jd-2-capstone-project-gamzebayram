@@ -28,8 +28,8 @@ public class FlightController {
 
     @PostMapping
     public ResponseEntity<Object> createFlight(@Valid @RequestBody FlightSaveRequest request) {
-        var flightSaveResponse = flightService.createFlight(request);
-        var response =  BaseResponse.<FlightSaveResponse>builder()
+        FlightSaveResponse flightSaveResponse = flightService.createFlight(request);
+        BaseResponse<FlightSaveResponse> response =  BaseResponse.<FlightSaveResponse>builder()
                 .status(HttpStatus.CREATED.value())
                 .isSuccess(true)
                 .data(flightSaveResponse)
@@ -39,8 +39,8 @@ public class FlightController {
 
     @GetMapping(("{flight_number}"))
     public ResponseEntity<Object>getFlightByFlightNumber(@PathVariable("flight_number") String flightNumber) {
-        var flight = flightService.getFlightByFlightNumber(flightNumber);
-        var response =  BaseResponse.<FlightSaveResponse>builder()
+        FlightSaveResponse flight = flightService.getFlightByFlightNumber(flightNumber);
+        BaseResponse<FlightSaveResponse> response =  BaseResponse.<FlightSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())
                 .isSuccess(true)
                 .data(flight)
@@ -50,8 +50,8 @@ public class FlightController {
 
     @GetMapping
     public ResponseEntity<Object>getAllFlights() {
-        var flights = flightService.getAllFlights();
-        var response =  BaseResponse.<List<FlightSaveResponse>>builder()
+        List<FlightSaveResponse> flights = flightService.getAllFlights();
+        BaseResponse<List<FlightSaveResponse>> response =  BaseResponse.<List<FlightSaveResponse>>builder()
                 .status(HttpStatus.OK.value())
                 .isSuccess(true)
                 .data(flights)

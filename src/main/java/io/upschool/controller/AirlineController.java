@@ -23,8 +23,8 @@ public class AirlineController {
 
     @GetMapping(("{icaoCode}"))
     public ResponseEntity<Object> getAirlineByIcaoCode(@PathVariable("icaoCode") String icaoCode) {
-        var airline = airlineService.getAirlineByIcaoCode(icaoCode);
-        var response =  BaseResponse.<AirlineSaveResponse>builder()
+        AirlineSaveResponse airline = airlineService.getAirlineByIcaoCode(icaoCode);
+        BaseResponse<AirlineSaveResponse> response =  BaseResponse.<AirlineSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())
                 .isSuccess(true)
                 .data(airline)
@@ -34,8 +34,8 @@ public class AirlineController {
 
     @PostMapping
     public ResponseEntity<Object> createAirline(@Valid @RequestBody AirlineSaveRequest request) {
-        var airlineSaveResponse = airlineService.createAirline(request);
-        var response =  BaseResponse.<AirlineSaveResponse>builder()
+        AirlineSaveResponse airlineSaveResponse = airlineService.createAirline(request);
+        BaseResponse<AirlineSaveResponse> response =  BaseResponse.<AirlineSaveResponse>builder()
                 .status(HttpStatus.CREATED.value())
                 .isSuccess(true)
                 .data(airlineSaveResponse)
@@ -46,8 +46,8 @@ public class AirlineController {
 
     @GetMapping
     public ResponseEntity<Object>getAllAirlines() {
-        var airlines = airlineService.getAllAirlines();
-        var response =  BaseResponse.<List<AirlineSaveResponse>>builder()
+        List<AirlineSaveResponse> airlines = airlineService.getAllAirlines();
+        BaseResponse<List<AirlineSaveResponse>> response =  BaseResponse.<List<AirlineSaveResponse>>builder()
                 .status(HttpStatus.OK.value())
                 .isSuccess(true)
                 .data(airlines)

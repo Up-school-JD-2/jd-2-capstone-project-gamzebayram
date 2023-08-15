@@ -2,6 +2,7 @@ package io.upschool.dto.flight;
 
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +20,9 @@ public class FlightSaveResponse {
 
     private Long id;
     private String flightNumber;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", shape = JsonFormat.Shape.STRING)
     private LocalDateTime departureDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", shape = JsonFormat.Shape.STRING)
     private LocalDateTime arrivalDate;
     private String departureAirportName;
     private String departureAirportLocation;

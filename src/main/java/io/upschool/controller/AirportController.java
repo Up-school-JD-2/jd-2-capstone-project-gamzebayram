@@ -24,8 +24,8 @@ public class AirportController {
 
     @GetMapping
     public ResponseEntity<Object>getAllAirports() {
-        var airports = airportService.getAllAirports();
-        var response =  BaseResponse.<List<AirportSaveResponse>>builder()
+        List<AirportSaveResponse> airports = airportService.getAllAirports();
+        BaseResponse<List<AirportSaveResponse>> response =  BaseResponse.<List<AirportSaveResponse>>builder()
                 .status(HttpStatus.OK.value())
                 .isSuccess(true)
                 .data(airports)
@@ -36,8 +36,8 @@ public class AirportController {
 
     @GetMapping(("{iataCode}"))
     public ResponseEntity<Object>getAirportByIataCode(@PathVariable("iataCode") String iataCode) {
-        var airport = airportService.getAirportByIataCode(iataCode);
-        var response =  BaseResponse.<AirportSaveResponse>builder()
+        AirportSaveResponse airport = airportService.getAirportByIataCode(iataCode);
+        BaseResponse<AirportSaveResponse> response =  BaseResponse.<AirportSaveResponse>builder()
                 .status(HttpStatus.FOUND.value())
                 .isSuccess(true)
                 .data(airport)
@@ -48,8 +48,8 @@ public class AirportController {
 
     @PostMapping
     public ResponseEntity<Object> createAirport(@Valid @RequestBody AirportSaveRequest request) {
-        var airportSaveResponse = airportService.createAirport(request);
-        var response =  BaseResponse.<AirportSaveResponse>builder()
+        AirportSaveResponse airportSaveResponse = airportService.createAirport(request);
+        BaseResponse<AirportSaveResponse> response =  BaseResponse.<AirportSaveResponse>builder()
                 .status(HttpStatus.CREATED.value())
                 .isSuccess(true)
                 .data(airportSaveResponse)

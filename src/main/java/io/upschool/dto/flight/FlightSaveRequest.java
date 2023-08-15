@@ -3,6 +3,7 @@ package io.upschool.dto.flight;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,24 +21,24 @@ import java.time.LocalDateTime;
 public class FlightSaveRequest {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", shape = JsonFormat.Shape.STRING)
-    @NotBlank(message = "DepartureDate cannot be blank")
+    @NotNull(message = "DepartureDate cannot be null")
     private LocalDateTime departureDate;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", shape = JsonFormat.Shape.STRING)
-    @NotBlank(message = "ArrivalDate cannot be blank")
+    @NotNull(message = "ArrivalDate cannot be null")
     private LocalDateTime arrivalDate;
 
-    @NotBlank(message = "SeatCapacity cannot be blank")
-    @Size(min = 2, message = "Koltuk kapasitesi minimum 2  olabilir.")
+    @NotNull(message = "SeatCapacity cannot be blank")
+    //@Size(min = 2, message = "Koltuk kapasitesi minimum 2  olabilir.")
     private int seatCapacity;
 
-    @NotBlank(message = "BasePrice cannot be blank")
-    private double BasePrice;
+    @NotNull(message = "BasePrice cannot be null")
+    private double basePrice;
 
-    @NotBlank(message = "RouteId cannot be blank")
+    @NotNull(message = "RouteId cannot be null")
     private Long routeId;
 
-    @NotBlank(message = "AirlineId cannot be blank")
+    @NotNull(message = "AirlineId cannot be null")
     private Long airlineId;
 
 
